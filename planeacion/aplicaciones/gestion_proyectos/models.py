@@ -29,7 +29,7 @@ class estados_proyectos(models.Model):
         return self.nombre_estado
 
 class proyectos(models.Model):
-    numero_proyecto = models.CharField(max_length=200)
+    numero_proyecto = models.CharField(max_length=200,unique=True)
     nombre_proyecto = models.TextField()
     fecha_inicio = models.DateField()
     valor_proyecto = models.DecimalField(max_digits=15, decimal_places=2)
@@ -37,21 +37,33 @@ class proyectos(models.Model):
     secretaria = models.ForeignKey(secretarias, on_delete=models.CASCADE)
     sector = models.ForeignKey(sectores_inversion, on_delete=models.CASCADE)
     estado = models.ForeignKey(estados_proyectos, on_delete=models.CASCADE)
+    archivo_proyecto = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
     def __str__(self):
         return self.nombre_proyecto
 
 
 class asignar_proyectos(models.Model):
-    proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha_asignacion = models.DateField()
-    estado = models.CharField(max_length=50, default='Activo')
+    proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)    
+    detalle = models.TextField( null=True, blank=True)
+    archivo_asignado = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
+    def __str__(self):
+        return self.proyecto.nombre_proyecto
 
-class realizar_cambios(models.Model):
+
+
+class revisiones(models.Model):
+    fecha_cambio = models.DateField()
     proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha_cambio = models.DateField()
-    estado = models.CharField(max_length=50, default='Activo')
+    estado_anterior = models.CharField(max_length=70)
+    nuevo_estado = models.CharField(max_length=70)
+    detalle_revision = models.TextField( null=False, blank=True)
+    archivo_revision = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
+    def __str__(self):
+        return self.proyecto.nombre_proyecto
+
 
     
     
