@@ -1,0 +1,82 @@
+{% extends 'listar.html' %}
+{% load static %}
+{% block title %} Listado de municipios {% endblock %}
+
+{% block btn-volver %}
+<div class="container mb-4">
+    <a href="#" class="btn btn-outline-dark me-2 mb-2 rounded-pill"><i class="fa-sharp fa-solid fa-arrow-left"></i>Volver</a>
+</div>
+{% endblock %}
+
+
+{% block titulo_tabla %} Listado de Municipios {% endblock %}
+
+{% block btn-agregar %}
+<a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button" href="#" data-bs-toggle="modal"
+    data-bs-target="#crear_mu"><i class="fa-sharp fa-solid fa-plus"></i> Nuevo Municipio</a>
+
+<!-- Modal para crear municipios-->
+<div class="modal fade" id="crear_mu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Municipio</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/nuevo_municipio/" method="POST">
+                    {% csrf_token %}
+                    <label for="nombre_municipio">Nombre del municipio</label>
+                    <input type="text" name="nombre_municipio" id="id_municipio" minlength="3">
+                    <input class="btn btn-primary" type="submit" value="Guardar">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block columas %}
+<th scope="col">id</th>
+<th scope="col">Nombre</th>
+<th scope="col">Acciones</th>
+{% endblock %}
+
+{% block filas %}
+
+{% for municipio in municipios %}
+<tr>
+    <th scope="row">{{municipio.id}}</th>
+    <td>{{municipio.nombre_municipio}}</td>
+    <td>
+    <a class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill" type="button" href="#" data-bs-toggle="modal"
+        data-bs-target="#modificar_mu"><i class="fa-regular fa-pen-to-square"></i></a>
+    <a class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill" type="button" href="#" data-bs-toggle="modal"
+        data-bs-target="#eliminar_mu"><i class="fa-solid fa-trash-can"></i></i></a>
+    <!-- Modal para modificar municipios-->
+    <div class="modal fade" id="modificar_mu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modificar el Municipio :
+                        {{municipio.nombre_municipio}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                        <label for="nombre_municipio">Nuevo Nombre</label>
+                        <input value="{{municipio.nombre_municipio}}" type="text" name="nombre_municipio"
+                            id="id_municipio" minlength="3">
+                        <input class="btn btn-primary rounded-pill" type="submit" value="Guardar">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </td>
+</tr>
+{% endfor %}
+
+{% endblock %}

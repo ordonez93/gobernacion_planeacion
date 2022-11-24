@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# envio de mensajeria
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage' 
 
 # Application definition
 

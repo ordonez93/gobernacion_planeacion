@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Editar municipio</title>
+</head>
+<body>
+   
+    <div>
+        <h1>Editar municipio</h1>
+        <form action="/nuevo_municipio/" method="POST">
+            {% csrf_token %}
+            <label for="nombre_municipio">Nuevo Nombre municipio</label>
+            <input type="text" name="nombre_municipio" id="nombre_municipio">
+            <input type="submit" value="Cambiar">
+        </form>
+    </div>
+   
+</body>
+</html>

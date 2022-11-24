@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %}</title>
+    <title>{% block title %} Inicio {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\bootstrap.min.css' %}">
     <script src="{% static 'lib\bootstrap-5.0.2-dist\js\bootstrap.min.js' %}"></script>
     <script src="{% static 'lib\bootstrap-5.0.2-dist\js\jquery.min.js' %}"></script>
     <script src="{% static 'lib\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js' %}"></script>
-
-
+    
+    <!-- cadena de incrustacion de iconos, no fue posible la descarga del archivo js -->
+    <script src="https://kit.fontawesome.com/55030b9749.js" crossorigin="anonymous"></script>
+    {% block librerias %}
+    <!-- aquí las librearias-->
+    {% endblock %}
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
@@ -24,18 +28,36 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
             <form class="d-flex">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-              <a class="btn btn-outline-primary me-2 mb-2" type="button" href="/">Inicio</a>
-              <a class="btn btn-outline-primary me-2 mb-2" type="button" href="#">Proyectos</a>
-              <a class="btn btn-outline-primary me-2 mb-2" type="button">Asignaciones</a>
-              <a class="btn btn-outline-primary me-2 mb-2" type="button">Revisiones</a>
-              <a class="btn btn-outline-success me-2 mb-2" type="button" href="#" >Tablas</a>
+              <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button" href="/">Inicio</a>
+              <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button" href="#">Proyectos</a>
+              <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button">Asignaciones</a>
+              <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button">Revisiones</a>
+              <a class="btn btn-outline-success me-2 mb-2 rounded-pill" type="button" href="#" >Tablas</a>
               </ul>
             </form>
           </div>
         </div>
       </nav>
+
+      <!--enlace de cadena para aletar responsive-->
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      {% if messages %}
+      {% for message in messages %}
+      <script>
+        Swal.fire({
+          "title": "{{ message }}",
+          "icon": "success",
+          "confirmButtonText": "Aceptar"
+          
+        })
+      </script>
+
+      {% endfor %}
+      {% endif %}
+
       {% block content %}
 
+ 
 
       {% endblock %}
     <div class="card text-white bg-dark mb-3" style="width: auto;;">
@@ -46,6 +68,9 @@
       </div>
     </div>
 
+    {% block scripts %}
+    <!-- aquí los scripts-->
+    {% endblock %}
 
 
 

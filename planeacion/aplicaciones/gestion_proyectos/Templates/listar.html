@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block librearias %}
+//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css
+{% endblock %}
+<link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\jquery.dataTables.min.css' %}">
+<script src="{% static 'lib\bootstrap-5.0.2-dist\js\jquery.dataTables.min.js' %}"></script>
+{% block title %} Inicio {% endblock %}
+{% block content %}
+
+{% block btn-volver %}
+<!-- aqui el boton de volver con la respectiva url -->
+{% endblock %}
+
+
+
+<div class="container mb-4">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                {% block titulo_tabla %} {% endblock %}
+            </h3>
+        </div>
+
+        <div class="card-body">
+            {% block btn-agregar %}
+            <!-- aqui el boton de agregar registros -->
+            {% endblock %}
+            <!-- Tanbla para listar registros-->
+            <table class="table" id="registros_tablas">
+                <thead>
+                    <tr>
+                        {% block columas %}
+
+                        {% endblock %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% block filas %}
+
+                    {% endblock %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+{% block scripts %}
+<script type="application/javascript">
+    $(function() {
+        $('#registros_tablas').DataTable();
+    });
+</script>
+{% endblock %}
+{% endblock %}
