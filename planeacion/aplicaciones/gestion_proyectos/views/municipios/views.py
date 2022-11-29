@@ -24,7 +24,6 @@ def crear_municipio(request):
     else:
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_municipio)
-        
 
 def editar_municipio(request, id_municipio):
     if request.method == 'POST':

@@ -1,19 +1,44 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <title>Editar municipio</title>
+    <!-- estilos propios -->
+    <link rel="stylesheet" href="{% static 'css\estilo_modal.css' %}">
+
+    <!-- enlaces propios de script-->
+    <script src="{% static 'js\main.js' %}"></script>
+
+
+    <link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\bootstrap.min.css' %}">
+    <script src="{% static 'lib\bootstrap-5.0.2-dist\js\bootstrap.min.js' %}"></script>
+    <script src="{% static 'lib\bootstrap-5.0.2-dist\js\jquery.min.js' %}"></script>
+    <script src="{% static 'lib\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js' %}"></script>
 </head>
+<html lang="en">
+
 <body>
-   
-    <div>
-        <h1>Editar municipio</h1>
-        <form action="/nuevo_municipio/" method="POST">
-            {% csrf_token %}
-            <label for="nombre_municipio">Nuevo Nombre municipio</label>
-            <input type="text" name="nombre_municipio" id="nombre_municipio">
-            <input type="submit" value="Cambiar">
-        </form>
-    </div>
-   
+    <section class="modal_editar" id="crear_mu">
+        <div class="modal_contenido">
+            <div class="modal-header">
+                <a href="/listar_municipios/" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></a>
+            </div>
+            <h5 class="modal-title" id="exampleModalLabel">Modificar el Municipio :<p>
+                    {{municipio_edicion.nombre_municipio}}</p>
+            </h5>
+
+            <div class="modal-body">
+                <form action="{{municipio_edicion.nombre_municipio}}" method="POST">
+                    {% csrf_token %}
+                    <h6 class="modal-title" for="nombre_municipio">Nuevo Nombre: </h6>
+                    <input type="text" name="nombre_municipio" id="id_municipio" minlength="3">
+                    <input class="btn btn-outline-primary rounded-pill" type="submit" value="Guardar">
+                </form>
+            </div>
+        </div>
+    </section>
+
+
 </body>
+
 </html>

@@ -1,0 +1,30 @@
+.modal_editar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111db;
+    display: flex;
+
+}
+
+.modal_contenido{
+    margin: auto;
+    width: 90%;
+    max-width: 400px;
+    max-height: 90%;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 3em 2.5em;
+    display: grid;
+    gap: 1em;
+   
+    grid-auto-columns: 100%;
+}
+
+
+
+.btn-editar{
+    text-align: center;
+}

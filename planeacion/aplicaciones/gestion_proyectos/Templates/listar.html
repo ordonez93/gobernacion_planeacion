@@ -47,10 +47,29 @@
     </div>
 </div>
 {% block scripts %}
-<script type="application/javascript">
-    $(function() {
-        $('#registros_tablas').DataTable();
-    });
-</script>
+    <script type="application/javascript">
+        $(function () {
+            $('#registros_tablas').DataTable({
+                responsive: true,
+                
+            });
+
+            $('.btnTest').on('click', function () {
+                $.ajax({
+                    url: '{% url 'listar_municipios' %}',
+                    type: 'POST',
+                    data: {id: 1},
+                    dataType: 'json'
+                }).done(function (data) {
+                    console.log(data);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }).always(function (data) {
+
+                });
+            });
+        });
+    </script>
+
 {% endblock %}
 {% endblock %}
