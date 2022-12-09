@@ -3,7 +3,7 @@
 {% block title %} Listado de municipios {% endblock %}
 
 {% block btn-volver %}
-<script src="{% static 'js\main.js' %}"></script>
+
 <div class="container mb-4">
     <a href="#" class="btn btn-outline-dark me-2 mb-2 rounded-pill"><i
             class="fa-sharp fa-solid fa-arrow-left"></i>Volver</a>
@@ -13,32 +13,16 @@
 
 {% block titulo_tabla %} Listado de Municipios {% endblock %}
 
-{% block btn-agregar %}
-<a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button" href="#" data-bs-toggle="modal"
-    data-bs-target="#crear_mu"><i class="fa-sharp fa-solid fa-plus"></i> Nuevo Municipio</a>
+{% block titulo_modal %} Crear nuevo municipio {% endblock %}
 
-<!-- Modal para crear municipios-->
-<div class="modal fade" id="crear_mu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo Municipio</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/nuevo_municipio/" method="POST">
-                    {% csrf_token %}
-                    <label for="nombre_municipio">Nombre del municipio</label>
-                    <input type="text" name="nombre_municipio" id="id_municipio" minlength="3">
-                    <input class="btn btn-primary" type="submit" value="Guardar">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+{% block formulario %}
+<form action="/nuevo_municipio/" method="POST">
+    {% csrf_token %}
+    <label for="nombre_municipio">Nombre del municipio</label>
+    <input type="text" name="nombre_municipio" id="txtnombremunicipio" minlength="4" required>
+    <input class="btn btn-primary" type="submit" value="Guardar">
+</form>
 {% endblock %}
-
 
 {% block columas %}
 <th scope="col">id</th>
@@ -53,54 +37,44 @@
     <th scope="row">{{municipio.id}}</th>
     <td>{{municipio.nombre_municipio}}</td>
     <td>
-        <button type="button" onclick="openModal({{municipio.id}},'{{municipio.nombre_municipio}}')"
+        <button type="button" onclick="ModalEditar('{{municipio.id}}','{{municipio.nombre_municipio}}')"
             class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill"><i
                 class="fa-regular fa-pen-to-square"></i></button>
 
-
-        <a class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill" type="button" href="#" data-bs-toggle="modal"
-            data-bs-target="#eliminar_mu"><i class="fa-solid fa-trash-can"></i></i></a>
-
+        <button type="button" onclick="ModalEliminar('{{municipio.id}}','{{municipio.nombre_municipio}}')"
+            class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill"><i class="fa-solid fa-trash-can"></i></button>
 
     </td>
 </tr>
-
-{% endfor %}
-
-<!-- Modal para modificar municipios-->
-<div class="modal fade" id="editar-municipio" tabindex="-1" aria-hidden="true">
+<!-- Modal para modificar Registros-->
+<div class="modal fade" id="editar-registro" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:rgb(249, 247, 247);">
                 <h5 class="modal-title">Cambiar el nombre a <span style="background-color: yellow;"
-                        id="nombre-municipio"></span></h5>
+                        id="nombre-registro"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#">
+                <!-- aqui el formulario de modificar registros-->
+                <form action="/editar_municipio/" method="POST">
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Nuevo Nombre:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                </form>
+                        <input name="id_municipio" type="hidden" class="form-control" id="id-registro">
+                        <input name="nuevo_nombre" type="text" class="form-control mb-2" id="nuevo-nombre" minlength="4" required>
+                    </div>  
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-primary rounded-pill">Cambiar</button>
+
+            <div class="modal-footer" style="background-color:rgb(249, 247, 247);">
+                <button type="submit" class="btn btn-outline-primary rounded-pill ">Cambiar</button>
                 <button type="button" class="btn btn-outline-danger rounded-pill"
                     data-bs-dismiss="modal">Cerrar</button>
             </div>
+                </form>   
         </div>
     </div>
 </div>
-
-<script>
-    const myModal = new bootstrap.Modal(document.getElementById("editar-municipio"), {});
-    function openModal(id, nombre) {
-        myModal.show();
-        console.log(id, nombre);
-        var nombre_municipio = document.getElementById("nombre-municipio");
-        nombre_municipio.innerHTML = nombre;
-    }
-</script>
+{% endfor %}
 
 {% endblock %}

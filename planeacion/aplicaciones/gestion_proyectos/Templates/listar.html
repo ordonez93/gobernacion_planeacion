@@ -1,18 +1,20 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block librearias %}
-//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css
-{% endblock %}
 <link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\jquery.dataTables.min.css' %}">
 <script src="{% static 'lib\bootstrap-5.0.2-dist\js\jquery.dataTables.min.js' %}"></script>
+
+{% endblock %}
+
+
 {% block title %} Inicio {% endblock %}
-{% block content %}
+
 
 {% block btn-volver %}
 <!-- aqui el boton de volver con la respectiva url -->
 {% endblock %}
 
-
+{% block content %}
 
 <div class="container mb-4">
     <div class="card card-default">
@@ -25,10 +27,27 @@
 
         <div class="card-body">
             {% block btn-agregar %}
-            <!-- aqui el boton de agregar registros -->
+            <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button" href="#" data-bs-toggle="modal"
+                data-bs-target="#crear_reg"><i class="fa-sharp fa-solid fa-plus"></i> Nuevo Registro</a>
+            <!-- Modal para crear registros-->
+            <div class="modal fade" id="crear_reg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{% block titulo_modal %} {% endblock %}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- aqui el formulario de crear registros-->
+                            {% block formulario %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endblock %}
             <!-- Tanbla para listar registros-->
-            <table class="table" id="registros_tablas">
+            <table class="table" id="registros_tabla">
                 <thead>
                     <tr>
                         {% block columas %}
@@ -46,30 +65,8 @@
         </div>
     </div>
 </div>
-{% block scripts %}
-    <script type="application/javascript">
-        $(function () {
-            $('#registros_tablas').DataTable({
-                responsive: true,
-                
-            });
-
-            $('.btnTest').on('click', function () {
-                $.ajax({
-                    url: '{% url 'listar_municipios' %}',
-                    type: 'POST',
-                    data: {id: 1},
-                    dataType: 'json'
-                }).done(function (data) {
-                    console.log(data);
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus + ': ' + errorThrown);
-                }).always(function (data) {
-
-                });
-            });
-        });
-    </script>
-
 {% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js\modales.js' %}"></script>
 {% endblock %}
