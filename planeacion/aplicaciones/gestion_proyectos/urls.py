@@ -1,5 +1,5 @@
 from django.urls import path
-from aplicaciones.gestion_proyectos.views.municipios.views import *
+from aplicaciones.gestion_proyectos.views.tablas.views import *
 urlpatterns = [
     path('', inicio, name="inicio"),
 
@@ -7,7 +7,8 @@ urlpatterns = [
     path('listar_municipios/', listar_municipio,name='listar_municipios'),
     path('nuevo_municipio/', crear_municipio,name='nuevo_municipio'),
     path('editar_municipio/', editar_municipio,name='editar_municipio'),
-    path('eliminar_municipio/<int:id_municipio>', eliminar_municipio,name='eliminar_municipio'),
+    path('eliminar_municipio/', eliminar_municipio,name='eliminar_municipio'),
+    path('tablas/', tablas,name='tablas'),
 
     #rutas para la gestion de secretarías
 

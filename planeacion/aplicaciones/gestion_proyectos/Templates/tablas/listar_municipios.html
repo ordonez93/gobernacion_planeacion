@@ -2,14 +2,9 @@
 {% load static %}
 {% block title %} Listado de municipios {% endblock %}
 
-{% block btn-volver %}
+{% block librearias %}
 
-<div class="container mb-4">
-    <a href="#" class="btn btn-outline-dark me-2 mb-2 rounded-pill"><i
-            class="fa-sharp fa-solid fa-arrow-left"></i>Volver</a>
-</div>
 {% endblock %}
-
 
 {% block titulo_tabla %} Listado de Municipios {% endblock %}
 
@@ -37,12 +32,12 @@
     <th scope="row">{{municipio.id}}</th>
     <td>{{municipio.nombre_municipio}}</td>
     <td>
-        <button type="button" onclick="ModalEditar('{{municipio.id}}','{{municipio.nombre_municipio}}')"
+        <button type="button" onclick="EditarRegistro('{{municipio.id}}','{{municipio.nombre_municipio}}')"
             class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill"><i
                 class="fa-regular fa-pen-to-square"></i></button>
 
-        <button type="button" onclick="ModalEliminar('{{municipio.id}}','{{municipio.nombre_municipio}}')"
-            class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill"><i class="fa-solid fa-trash-can"></i></button>
+        <button type="button" onclick="EliminarRegistro('{{municipio.id}}','{{municipio.nombre_municipio}}')"
+        class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill"><i class="fa-solid fa-trash-can"></i></button>
 
     </td>
 </tr>
@@ -61,9 +56,10 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Nuevo Nombre:</label>
-                        <input name="id_municipio" type="hidden" class="form-control" id="id-registro">
-                        <input name="nuevo_nombre" type="text" class="form-control mb-2" id="nuevo-nombre" minlength="4" required>
-                    </div>  
+                        <input name="id_editar" type="hidden" class="form-control" id="id-registro">
+                        <input name="nuevo_nombre" type="text" class="form-control mb-2" id="nuevo-nombre" minlength="4"
+                            required>
+                    </div>
             </div>
 
             <div class="modal-footer" style="background-color:rgb(249, 247, 247);">
@@ -71,7 +67,37 @@
                 <button type="button" class="btn btn-outline-danger rounded-pill"
                     data-bs-dismiss="modal">Cerrar</button>
             </div>
-                </form>   
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal para Eliminar Registros-->
+<div class="modal fade" id="eliminar-registro" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:rgb(249, 247, 247);">
+                <h5 class="modal-title">¿Desea eliminar el municipio: <span style="background-color: yellow;"
+                        id="registro-eliminar"></span>?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- aqui el formulario de eliminar registros-->
+                <form action="/eliminar_municipio/" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <div class="alert alert-warning" role="alert">
+                            <h6><i class="fa-solid fa-triangle-exclamation"></i>  Los registros eliminados no se pueden recuperar !!</h6>
+                          </div>
+                        <input name="id_eliminar" type="hidden" class="form-control" id="id-eliminar">
+                    </div>
+            </div>
+
+            <div class="modal-footer" style="background-color:rgb(249, 247, 247);">
+                <button type="submit" class="btn btn-outline-primary rounded-pill ">Si, eliminar</button>
+                <button type="button" class="btn btn-outline-danger rounded-pill"
+                    data-bs-dismiss="modal">No, cancelar</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>

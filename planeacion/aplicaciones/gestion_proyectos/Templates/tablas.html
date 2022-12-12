@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block librearias %}
+<link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\jquery.dataTables.min.css' %}">
+<script src="{% static 'lib\bootstrap-5.0.2-dist\js\jquery.dataTables.min.js' %}"></script>
+{% endblock %}
+
+
+{% block title %} Tablas {% endblock %}
+
+
+{% block content %}
+<section class="content mb-4" style="background-color: darkslategrey; padding: 3%;">
+    
+    <div class="container-fluid">
+        
+        <div class="row" >
+            <div class="col-lg-4 col-6">
+                <div class="small-box bg-dark rounded">
+                    <div class="inner text-white" style="text-align: center;">
+                        <br>
+                        <h3>{{ contarMunicipios }}</h3>
+                        <h6>Municipios</h6>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <div style="padding: 5%; margin: 3%; text-align: center;">
+                        <a href="/listar_municipios/" class="small-box-footer btn btn-outline-success rounded-pill" style="color: cornsilk;">
+                            Más opciones
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                        <i class="fa-solid fa-city text-white" style="margin: 5%;"></i>
+
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-6">
+                <div class="small-box bg-dark rounded">
+                    <div class="inner text-white" style="text-align: center;">
+                        <br>
+                        <h3>{{ contarMunicipios }}</h3>
+                        <h6>Secretarías</h6>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <div style="padding: 5%; margin: 3%; text-align: center;">
+                        <a href="/listar_municipios/" class="small-box-footer btn btn-outline-success rounded-pill" style="color: cornsilk;">
+                            Más opciones
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                        <i class="fa-solid fa-landmark text-white"  style="margin: 5%;"></i>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-6">
+                <div class="small-box bg-dark rounded">
+                    <div class="inner text-white" style="text-align: center;">
+                        <br>
+                        <h3>{{ contarMunicipios }}</h3>
+                        <h6>Sectores de inversion</h6>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <div style="padding: 5%; margin: 3%; text-align: center;">
+                        <a href="/listar_municipios/" class="small-box-footer btn btn-outline-success rounded-pill" style="color: cornsilk;">
+                            Más opciones
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                        <i class="fa-solid fa-chart-simple text-white" style="margin: 5%;"></i>}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js\modales.js' %}"></script>
+{% endblock %}
+
