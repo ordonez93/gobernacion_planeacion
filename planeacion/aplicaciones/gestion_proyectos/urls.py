@@ -1,19 +1,29 @@
 from django.urls import path
 from aplicaciones.gestion_proyectos.views.tablas.views import *
 urlpatterns = [
+
+    # rutas de inicio y tablas
     path('', inicio, name="inicio"),
+    path('tablas/', tablas,name='tablas'),
 
     #rutas para la gestion de municipios
     path('listar_municipios/', listar_municipio,name='listar_municipios'),
     path('nuevo_municipio/', crear_municipio,name='nuevo_municipio'),
     path('editar_municipio/', editar_municipio,name='editar_municipio'),
     path('eliminar_municipio/', eliminar_municipio,name='eliminar_municipio'),
-    path('tablas/', tablas,name='tablas'),
+    
 
     #rutas para la gestion de secretarías
-
+    path('listar_secretarias/', listar_secretarias,name='listar_secretarias'),
+    path('nueva_secretaria/', crear_secretaria,name='nueva_secretaria'),
+    path('editar_secretaria/', editar_secretaria,name='editar_secretaria'),
+    path('eliminar_secretaria/', eliminar_secretaria,name='eliminar_secretaria'),
 
     #rutas para la gestion de sectores de inversión
+    path('listar_sectores/', listar_sectores,name='listar_sectores'),
+    path('nuevo_sector/', crear_sector,name='nueva_secretaria'),
+    path('editar_sector/', editar_sector,name='editar_sector'),
+    path('eliminar_sector/', eliminar_sector,name= 'eliminar_sector'),
 
 
 

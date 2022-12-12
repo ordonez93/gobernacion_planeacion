@@ -44,8 +44,8 @@
                 </div>
             </div>
             {% endblock %}
-            <!-- Tanbla para listar registros-->
-            <table class="table" id="registros_tabla">
+            <!-- Tabla para listar registros-->
+            <table class="table" id="myTable">
                 <thead class="table-dark">
                     <tr>
                         {% block columas %}
@@ -66,5 +66,12 @@
 {% endblock %}
 
 {% block scripts %}
+
+
 <script src="{% static 'js\modales.js' %}"></script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
 {% endblock %}

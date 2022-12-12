@@ -1,42 +1,54 @@
 {% extends 'listar.html' %}
 {% load static %}
-{% block title %} Secretarias {% endblock %}
+{% block title %} Sectores de inversion {% endblock %}
 
 {% block librearias %}
 
 {% endblock %}
 
-{% block titulo_tabla %} Listado de secretarías {% endblock %}
+{% block titulo_tabla %} Listado de sectores de inversión {% endblock %}
 
-{% block titulo_modal %} Crear nueva Secretaría {% endblock %}
+{% block titulo_modal %} Crear nuevo sector de inversión {% endblock %}
 
 {% block formulario %}
-<form action="/nueva_secretaria/" method="POST">
+<form action="/nuevo_sector/" method="POST">
     {% csrf_token %}
-    <label for="nombre_secreataria">Nombre de la secretaría</label>
-    <input type="text" name="nombre_secretaria" id="txtnombresecreataria" minlength="4" required>
-    <input class="btn btn-primary" type="submit" value="Guardar">
+    <label for="nombre_sector">Nombre del sector</label>
+    <div class="mb-3">
+        <input type="text" name="nombre_sector" id="txtnombresector" minlength="4" required style="width: 100%;">
+    </div>
+   
+    <label for="nombre_sector">Agregar una descripción</label>
+    <div class="mb-3">
+        <textarea type="text" name="descripcion_sector" id="txtdescsector" placeholder="opcional" style="width: 100%;" ></textarea>
+    </div>
+    <div class="modal-footer">
+        <input class="btn btn-primary" type="submit" value="Guardar">
+    </div>
+    
 </form>
 {% endblock %}
 
 {% block columas %}
 <th scope="col">id</th>
 <th scope="col">Nombre</th>
+<th scope="col">Descripción</th>
 <th scope="col">Acciones</th>
 {% endblock %}
 
 {% block filas %}
 
-{% for secretaria in secretarias %}
+{% for sector in sectores %}
 <tr>
-    <th scope="row">{{secretaria.id}}</th>
-    <td>{{secretaria.nombre_secretaria}}</td>
+    <th scope="row">{{sector.id}}</th>
+    <td>{{sector.nombre_sector}}</td>
+    <td>{{sector.descripcion}}</td>
     <td>
-        <button type="button" onclick="EditarRegistro('{{secretaria.id}}','{{secretaria.nombre_secretaria}}')"
+        <button type="button" onclick="EditarRegistro('{{sector.id}}','{{sector.nombre_sector}}')"
             class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill"><i
                 class="fa-regular fa-pen-to-square"></i></button>
 
-        <button type="button" onclick="EliminarRegistro('{{secretaria.id}}','{{secretaria.nombre_secretaria}}')"
+        <button type="button" onclick="EliminarRegistro('{{sector.id}}','{{sector.nombre_sector}}')"
         class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill"><i class="fa-solid fa-trash-can"></i></button>
 
     </td>
@@ -52,13 +64,15 @@
             </div>
             <div class="modal-body">
                 <!-- aqui el formulario de modificar registros-->
-                <form action="/editar_secretaria/" method="POST">
+                <form action="/editar_sector/" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Nuevo Nombre:</label>
                         <input name="id_editar" type="hidden" class="form-control" id="id-registro">
-                        <input name="nuevo_nombre" type="text" class="form-control mb-2" id="nuevo-nombre" minlength="4"
-                            required>
+
+                        <label for="recipient-name" class="col-form-label">Nuevo Nombre:</label>
+                        <input name="nuevo_nombre" type="text" class="form-control mb-2" id="nuevo-nombre" minlength="4" required>
+                        <label for="recipient-name" class="col-form-label">Nueva descripción:</label>
+                        <input name="nueva_descripcion" type="text" class="form-control mb-2" id="nueva-descripcion">
                     </div>
             </div>
 
@@ -76,13 +90,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color:rgb(249, 247, 247);">
-                <h5 class="modal-title">¿Desea eliminar la secretaria: <span style="background-color: yellow;"
+                <h5 class="modal-title">¿Desea eliminar el sector: <span style="background-color: yellow;"
                         id="registro-eliminar"></span>?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- aqui el formulario de eliminar registros-->
-                <form action="/eliminar_secretaria/" method="POST">
+                <form action="/eliminar_sector/" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
                         <div class="alert alert-warning" role="alert">

@@ -17,7 +17,7 @@ class secretarias(models.Model):
 
 class sectores_inversion(models.Model):
     nombre_sector = models.CharField(max_length=50)
-    descripcion = models.TextField()
+    descripcion = models.TextField(null=True, blank=True)
     estado = models.CharField(max_length=50, default='Activo')
     def __str__(self):
         return self.nombre_sector
