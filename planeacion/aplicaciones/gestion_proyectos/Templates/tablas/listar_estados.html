@@ -1,0 +1,119 @@
+{% extends 'listar.html' %}
+{% load static %}
+{% block title %} Estados {% endblock %}
+
+{% block librearias %}
+
+{% endblock %}
+
+{% block titulo_tabla %} Listado de Estados para proyectos {% endblock %}
+
+{% block titulo_modal %} Crear Estado para proyectos {% endblock %}
+
+{% block formulario %}
+<form action="/nuevo_estado/" method="POST">
+    {% csrf_token %}
+    <label for="nombre_estado">Nombre del estado</label>
+    <div class="mb-3">
+        <input type="text" name="nombre_estado" id="txtnombreestado" minlength="4" required style="width: 100%;">
+    </div>
+   
+    <label for="nombre_estado">Agregar una descripción</label>
+    <div class="mb-3">
+        <textarea type="text" name="descripcion_estado" id="txtdescestado" placeholder="opcional" style="width: 100%;" ></textarea>
+    </div>
+    <div class="modal-footer">
+        <input class="btn btn-primary" type="submit" value="Guardar">
+    </div>
+</form>
+{% endblock %}
+
+{% block columas %}
+<th scope="col">id</th>
+<th scope="col">Nombre</th>
+<th scope="col">Descripción</th>
+<th scope="col">Acciones</th>
+{% endblock %}
+
+{% block filas %}
+
+{% for estado in estados %}
+<tr>
+    <th scope="row">{{estado.id}}</th>
+    <td>{{estado.nombre_estado}}</td>
+    <td>{{estado.descripcion}}</td>
+    <td>
+        <button type="button" onclick="EditarRegistro('{{estado.id}}','{{estado.nombre_estado}}')"
+            class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill"><i
+                class="fa-regular fa-pen-to-square"></i></button>
+
+        <button type="button" onclick="EliminarRegistro('{{estado.id}}','{{estado.nombre_estado}}')"
+        class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill"><i class="fa-solid fa-trash-can"></i></button>
+
+    </td>
+</tr>
+<!-- Modal para modificar Registros-->
+<div class="modal fade" id="editar-registro" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:rgb(249, 247, 247);">
+                <h5 class="modal-title">Cambiar el nombre a <span style="background-color: yellow;"
+                        id="nombre-registro"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- aqui el formulario de modificar registros-->
+                <form action="/editar_estado/" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input name="id_editar" type="hidden" class="form-control" id="id-registro">
+
+                        <label for="recipient-name" class="col-form-label">Nuevo Nombre:</label>
+                        <input name="nuevo_nombre" type="text" class="form-control mb-2" id="nuevo-nombre" minlength="4" required>
+                        <label for="recipient-name" class="col-form-label">Nueva descripción:</label>
+                        <input name="nueva_descripcion" type="text" class="form-control mb-2" id="nueva-descripcion" placeholder="Opcional">
+                    </div>
+            </div>
+
+            <div class="modal-footer" style="background-color:rgb(249, 247, 247);">
+                <button type="submit" class="btn btn-outline-primary rounded-pill ">Cambiar</button>
+                <button type="button" class="btn btn-outline-danger rounded-pill"
+                    data-bs-dismiss="modal">Cerrar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal para Eliminar Registros-->
+<div class="modal fade" id="eliminar-registro" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:rgb(249, 247, 247);">
+                <h5 class="modal-title">¿Desea eliminar el estado: <span style="background-color: yellow;"
+                        id="registro-eliminar"></span>?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- aqui el formulario de eliminar registros-->
+                <form action="/eliminar_estado/" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <div class="alert alert-warning" role="alert">
+                            <h6><i class="fa-solid fa-triangle-exclamation"></i>  Los registros eliminados no se pueden recuperar !!</h6>
+                        </div>
+                        <input name="id_eliminar" type="hidden" class="form-control" id="id-eliminar">
+                    </div>
+            </div>
+
+            <div class="modal-footer" style="background-color:rgb(249, 247, 247);">
+                <button type="submit" class="btn btn-outline-primary rounded-pill ">Si, eliminar</button>
+                <button type="button" class="btn btn-outline-danger rounded-pill"
+                    data-bs-dismiss="modal">No, cancelar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

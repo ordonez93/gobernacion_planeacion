@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} Inicio {% endblock %}</title>
     <!-- estilos locales -->
+    
     <link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'lib\datatables-1.10.20\css\jquery.dataTables.min.css' %}">
     <!-- enlaces locales de script-->
@@ -61,12 +62,13 @@
 
       {% endfor %}
       {% endif %}
-
+      <div style="background-color: rgb(33, 57, 57);">
       {% block content %}
 
  
 
       {% endblock %}
+    </div>
     <div class="card text-white bg-dark mb-3" style="width: auto;;">
       <div class="card-header">Gobernación del Putumayo</div>
       <div class="card-body">

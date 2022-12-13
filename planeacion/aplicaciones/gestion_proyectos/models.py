@@ -24,7 +24,7 @@ class sectores_inversion(models.Model):
 
 class estados_proyectos(models.Model):
     nombre_estado = models.CharField(max_length=50)
-    descripcion = models.TextField()
+    descripcion = models.TextField(null=True, blank=True)
     def __str__(self):
         return self.nombre_estado
 

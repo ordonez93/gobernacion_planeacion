@@ -25,6 +25,11 @@ urlpatterns = [
     path('editar_sector/', editar_sector,name='editar_sector'),
     path('eliminar_sector/', eliminar_sector,name= 'eliminar_sector'),
 
+    #rutas para la gestion de estados de proyectos
+    path('listar_estados/', listar_estados,name='listar_estados'),
+    path('nuevo_estado/', crear_estado,name='nuevo_estado'),
+    path('editar_estado/', editar_estado,name='editar_estado'),
+    path('eliminar_estado/', eliminar_estado,name='eliminar_estado'),
 
 
 ]

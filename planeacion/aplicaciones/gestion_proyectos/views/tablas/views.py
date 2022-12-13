@@ -10,10 +10,11 @@ def tablas(request):
     contarMunicipios = municipios.objects.all().count()
     contarSecretarias = secretarias.objects.all().count()
     contarSectores = sectores_inversion.objects.all().count()
-    return render(request, 'tablas.html', {"fecha": fecha_now.year , "contarMunicipios": contarMunicipios, "contarSecretarias": contarSecretarias, "contarSectores": contarSectores})
+    contarEstados = estados_proyectos.objects.all().count()
+    return render(request, 'tablas\menutablas.html', {"fecha": fecha_now.year , "contarMunicipios": contarMunicipios, "contarSecretarias": contarSecretarias, "contarSectores": contarSectores, "contarEstados": contarEstados})
 
 def inicio(request):
-    return render(request, 'layout.html', {"fecha": fecha_now.year})
+    return render(request, 'inicio.html', {"fecha": fecha_now.year})
 
 # funciones de municipios ----------------------------------------------
 
@@ -169,3 +170,57 @@ def eliminar_sector(request):
     except NameError:
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_sectores)
+
+# funciones de estados para proyectos ------------------------------------------------
+
+def listar_estados(request):
+    lista_estados = estados_proyectos.objects.all()
+    return render(request, 'tablas\listar_estados.html', {'estados':  lista_estados, "fecha": fecha_now.year})
+
+def crear_estado(request):
+    if request.method == 'POST':
+        e = request.POST['nombre_estado']
+        d = request.POST['descripcion_estado']
+        nuevo_estado = estados_proyectos()
+        nuevo_estado.nombre_estado = e
+        nuevo_estado.descripcion = d
+        nuevo_estado.save()
+        messages.success(request, 'Estado  para proyecto creado con exito!')
+        return redirect(to=listar_estados)
+    else:
+        messages.error(request, 'la solicitud no se pudo enviar')
+        return redirect(to=listar_estados)
+
+def editar_estado(request):
+    try:
+        if request.method == 'POST':
+            id_estado = request.POST['id_editar']
+            nuevo_nombre = request.POST['nuevo_nombre']
+            descripcion = request.POST['nueva_descripcion']
+            estado = estados_proyectos.objects.get(id=id_estado)
+            estado.nombre_estado = nuevo_nombre
+            estado.descripcion = descripcion
+            estado.save()
+            messages.success(request, 'Estado para proyecto editado con exito!')
+            return redirect(to=listar_estados)
+        else:
+            messages.error(request, 'la solicitud no se pudo enviar')
+            return redirect(to=listar_estados)
+    except NameError:
+        messages.error(request, 'la solicitud no se pudo enviar')
+        return redirect(to=listar_estados)
+
+def eliminar_estado(request):
+    try:
+        if request.method == 'POST':
+            id_estado = request.POST['id_eliminar']
+            estado =estados_proyectos.objects.get(id=id_estado)
+            estado.delete()
+            messages.success(request, 'Estado para proyecto eliminado con exito!')
+            return redirect(to=listar_estados)
+        else:
+            messages.error(request, 'la solicitud no se pudo enviar')
+            return redirect(to=listar_estados)
+    except NameError:
+        messages.error(request, 'la solicitud no se pudo enviar')
+        return redirect(to=listar_estados)
