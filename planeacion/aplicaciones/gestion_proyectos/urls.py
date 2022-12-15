@@ -31,5 +31,10 @@ urlpatterns = [
     path('editar_estado/', editar_estado,name='editar_estado'),
     path('eliminar_estado/', eliminar_estado,name='eliminar_estado'),
 
+    #rutas de notas
+    path('crear_nota/', crear_nota,name='nueva_nota'),
+    path('eliminar_nota/<int:id_nota>', eliminar_nota,name='eliminar_nota'),
+
+
 
 ]

@@ -14,7 +14,8 @@ def tablas(request):
     return render(request, 'tablas\menutablas.html', {"fecha": fecha_now.year , "contarMunicipios": contarMunicipios, "contarSecretarias": contarSecretarias, "contarSectores": contarSectores, "contarEstados": contarEstados})
 
 def inicio(request):
-    return render(request, 'inicio.html', {"fecha": fecha_now.year})
+    lista_notas = notas.objects.all()
+    return render(request, 'inicio.html', {"fecha": fecha_now.year,'notas':  lista_notas})
 
 # funciones de municipios ----------------------------------------------
 
@@ -224,3 +225,29 @@ def eliminar_estado(request):
     except NameError:
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_estados)
+
+
+    
+   
+
+def crear_nota(request):
+    if request.method == 'POST':
+        n = request.POST['mensaje_nota']
+        nueva_nota = notas()
+        nueva_nota.nombre_nota = n
+        nueva_nota.save()
+        #messages.success(request, 'Nota creada con exito!')
+        return redirect(to=inicio)
+    else:
+        messages.error(request, 'la solicitud no se pudo enviar')
+        return redirect(to=inicio)
+
+def eliminar_nota(request, id_nota):
+    try:
+        nota =notas.objects.get(id=id_nota)
+        nota.delete()
+        messages.success(request, 'Nota eliminada de la lista!')
+        return redirect(to=inicio)
+    except NameError:
+        messages.error(request, 'la solicitud no se pudo enviar')
+        return redirect(to=inicio)

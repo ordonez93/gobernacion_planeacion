@@ -65,5 +65,7 @@ class revisiones(models.Model):
         return self.proyecto.nombre_proyecto
 
 
-    
-    
+class notas(models.Model):
+    nombre_nota = models.CharField(max_length=200)
+    def __str__(self):
+        return self.nombre_nota
