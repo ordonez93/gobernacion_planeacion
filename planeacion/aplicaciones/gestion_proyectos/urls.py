@@ -1,5 +1,7 @@
 from django.urls import path
 from aplicaciones.gestion_proyectos.views.tablas.views import *
+from aplicaciones.gestion_proyectos.views.login.views import *
+
 urlpatterns = [
 
     # rutas de inicio y tablas
@@ -35,6 +37,6 @@ urlpatterns = [
     path('crear_nota/', crear_nota,name='nueva_nota'),
     path('eliminar_nota/<int:id_nota>', eliminar_nota,name='eliminar_nota'),
 
-
-
+    #login
+    path('/acounts/login', login,name='login'),
 ]

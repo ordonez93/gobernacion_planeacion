@@ -3,25 +3,30 @@ from django.http import HttpResponse
 from django.contrib import messages
 from ...models import *
 import datetime
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required, permission_required
 fecha_now = datetime.datetime.now()
+
 
 def tablas(request):
     contarMunicipios = municipios.objects.all().count()
     contarSecretarias = secretarias.objects.all().count()
     contarSectores = sectores_inversion.objects.all().count()
     contarEstados = estados_proyectos.objects.all().count()
-    return render(request, 'tablas\menutablas.html', {"fecha": fecha_now.year , "contarMunicipios": contarMunicipios, "contarSecretarias": contarSecretarias, "contarSectores": contarSectores, "contarEstados": contarEstados})
+    return render(request, 'tablas\menutablas.html', {"fecha": fecha_now.year, "contarMunicipios": contarMunicipios, "contarSecretarias": contarSecretarias, "contarSectores": contarSectores, "contarEstados": contarEstados})
+
 
 def inicio(request):
     lista_notas = notas.objects.all()
-    return render(request, 'inicio.html', {"fecha": fecha_now.year,'notas':  lista_notas})
+    return render(request, 'inicio.html', {"fecha": fecha_now.year, 'notas':  lista_notas})
 
 # funciones de municipios ----------------------------------------------
+
 
 def listar_municipio(request):
     lista_municipios = municipios.objects.all()
     return render(request, 'tablas\listar_municipios.html', {'municipios': lista_municipios, "fecha": fecha_now.year})
+
 
 def crear_municipio(request):
     if request.method == 'POST':
@@ -34,6 +39,7 @@ def crear_municipio(request):
     else:
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_municipio)
+
 
 def editar_municipio(request):
     try:
@@ -69,31 +75,22 @@ def eliminar_municipio(request):
         return redirect(to=listar_municipio)
 
 # funciones de secreatarias ------------------------------------------------
+
+
 def listar_secretarias(request):
     lista_secretarias = secretarias.objects.all()
     return render(request, 'tablas\listar_secretarias.html', {'secretarias':  lista_secretarias, "fecha": fecha_now.year})
 
-def crear_secretaria(request):
-    if request.method == 'POST':
-        s = request.POST['nombre_secretaria']
-        nueva_secretaria = secretarias()
-        nueva_secretaria.nombre_secretaria = s
-        nueva_secretaria.save()
-        messages.success(request, 'Secretaría creada con exito!')
-        return redirect(to=listar_secretarias)
-    else:
-        messages.error(request, 'la solicitud no se pudo enviar')
-        return redirect(to=listar_secretarias)
 
-def editar_secretaria(request):
+@permission_required('gestion_proyectos.add_secretarias')
+def crear_secretaria(request):
     try:
         if request.method == 'POST':
-            id_secretaria = request.POST['id_editar']
-            nuevo_nombre = request.POST['nuevo_nombre']
-            secretaria = secretarias.objects.get(id=id_secretaria)
-            secretaria.nombre_secretaria = nuevo_nombre
-            secretaria.save()
-            messages.success(request, 'secretaria editada con exito!')
+            s = request.POST['nombre_secretaria']
+            nueva_secretaria = secretarias()
+            nueva_secretaria.nombre_secretaria = s
+            nueva_secretaria.save()
+            messages.success(request, 'Secretaría creada con exito!')
             return redirect(to=listar_secretarias)
         else:
             messages.error(request, 'la solicitud no se pudo enviar')
@@ -102,12 +99,30 @@ def editar_secretaria(request):
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_secretarias)
 
+@permission_required('gestion_proyectos.change_secretarias')
+def editar_secretaria(request):
+    try:
+        if request.method == 'POST':
+            id_secretaria = request.POST['id_editar']
+            nuevo_nombre = request.POST['nuevo_nombre']
+            secretaria = secretarias.objects.get(id=id_secretaria)
+            secretaria.nombre_secretaria = nuevo_nombre
+            secretaria.save()
+            messages.success(request, 'secretaría editada con exito!')
+            return redirect(to=listar_secretarias)
+        else:
+            messages.error(request, 'Error en autenticación')
+            return redirect(to=listar_secretarias)
+    except NameError:
+        messages.error(request, 'la solicitud no se pudo enviar')
+        return redirect(to=listar_secretarias)
 
+@permission_required('gestion_proyectos.delete_secretarias')
 def eliminar_secretaria(request):
     try:
         if request.method == 'POST':
             id_secretaria = request.POST['id_eliminar']
-            secretaria =secretarias.objects.get(id=id_secretaria)
+            secretaria = secretarias.objects.get(id=id_secretaria)
             secretaria.delete()
             messages.success(request, 'secretaria eliminada con exito!')
             return redirect(to=listar_secretarias)
@@ -120,9 +135,11 @@ def eliminar_secretaria(request):
 
 # funciones de sectores de inversion ------------------------------------------------
 
+
 def listar_sectores(request):
     lista_sectores = sectores_inversion.objects.all()
     return render(request, 'tablas\listar_sectores.html', {'sectores':  lista_sectores, "fecha": fecha_now.year})
+
 
 def crear_sector(request):
     if request.method == 'POST':
@@ -137,6 +154,7 @@ def crear_sector(request):
     else:
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_secretarias)
+
 
 def editar_sector(request):
     try:
@@ -157,13 +175,15 @@ def editar_sector(request):
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_sectores)
 
+
 def eliminar_sector(request):
     try:
         if request.method == 'POST':
             id_sector = request.POST['id_eliminar']
-            sector =sectores_inversion.objects.get(id=id_sector)
+            sector = sectores_inversion.objects.get(id=id_sector)
             sector.delete()
-            messages.success(request, 'Sector de inversión eliminado con exito!')
+            messages.success(
+                request, 'Sector de inversión eliminado con exito!')
             return redirect(to=listar_sectores)
         else:
             messages.error(request, 'la solicitud no se pudo enviar')
@@ -174,9 +194,11 @@ def eliminar_sector(request):
 
 # funciones de estados para proyectos ------------------------------------------------
 
+
 def listar_estados(request):
     lista_estados = estados_proyectos.objects.all()
     return render(request, 'tablas\listar_estados.html', {'estados':  lista_estados, "fecha": fecha_now.year})
+
 
 def crear_estado(request):
     if request.method == 'POST':
@@ -192,6 +214,7 @@ def crear_estado(request):
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_estados)
 
+
 def editar_estado(request):
     try:
         if request.method == 'POST':
@@ -202,7 +225,8 @@ def editar_estado(request):
             estado.nombre_estado = nuevo_nombre
             estado.descripcion = descripcion
             estado.save()
-            messages.success(request, 'Estado para proyecto editado con exito!')
+            messages.success(
+                request, 'Estado para proyecto editado con exito!')
             return redirect(to=listar_estados)
         else:
             messages.error(request, 'la solicitud no se pudo enviar')
@@ -210,14 +234,16 @@ def editar_estado(request):
     except NameError:
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_estados)
+
 
 def eliminar_estado(request):
     try:
         if request.method == 'POST':
             id_estado = request.POST['id_eliminar']
-            estado =estados_proyectos.objects.get(id=id_estado)
+            estado = estados_proyectos.objects.get(id=id_estado)
             estado.delete()
-            messages.success(request, 'Estado para proyecto eliminado con exito!')
+            messages.success(
+                request, 'Estado para proyecto eliminado con exito!')
             return redirect(to=listar_estados)
         else:
             messages.error(request, 'la solicitud no se pudo enviar')
@@ -226,9 +252,6 @@ def eliminar_estado(request):
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=listar_estados)
 
-
-    
-   
 
 def crear_nota(request):
     if request.method == 'POST':
@@ -242,11 +265,11 @@ def crear_nota(request):
         messages.error(request, 'la solicitud no se pudo enviar')
         return redirect(to=inicio)
 
+
 def eliminar_nota(request, id_nota):
     try:
-        nota =notas.objects.get(id=id_nota)
+        nota = notas.objects.get(id=id_nota)
         nota.delete()
-        messages.success(request, 'Nota eliminada de la lista!')
         return redirect(to=inicio)
     except NameError:
         messages.error(request, 'la solicitud no se pudo enviar')

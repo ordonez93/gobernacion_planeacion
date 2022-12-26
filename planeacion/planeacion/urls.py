@@ -20,4 +20,5 @@ from aplicaciones.gestion_proyectos.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('aplicaciones.gestion_proyectos.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

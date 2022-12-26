@@ -31,14 +31,16 @@
 <tr>
     <th scope="row">{{municipio.id}}</th>
     <td>{{municipio.nombre_municipio}}</td>
-    <td>
+    <td> 
+        {% if perms.gestion_proyectos.change_municipios %}
         <button type="button" onclick="EditarRegistro('{{municipio.id}}','{{municipio.nombre_municipio}}')"
             class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill"><i
                 class="fa-regular fa-pen-to-square"></i></button>
-
+        {% endif %}
+        {% if perms.gestion_proyectos.delete_municipios %}
         <button type="button" onclick="EliminarRegistro('{{municipio.id}}','{{municipio.nombre_municipio}}')"
         class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill"><i class="fa-solid fa-trash-can"></i></button>
-
+        {% endif %}
     </td>
 </tr>
 <!-- Modal para modificar Registros-->

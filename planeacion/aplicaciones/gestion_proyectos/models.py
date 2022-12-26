@@ -29,15 +29,16 @@ class estados_proyectos(models.Model):
         return self.nombre_estado
 
 class proyectos(models.Model):
-    numero_proyecto = models.CharField(max_length=200,unique=True)
+    bpin = models.CharField(max_length=200,unique=True) # codigo de referencia del proyecto
     nombre_proyecto = models.TextField()
-    fecha_inicio = models.DateField()
-    valor_proyecto = models.DecimalField(max_digits=15, decimal_places=2)
-    municipio = models.ForeignKey(municipios, on_delete=models.CASCADE)
+    fecha_ingreso = models.DateField()
+    presentacion = models.CharField(max_length=50, null=False, blank=False) #nuevo o actualizacion
     secretaria = models.ForeignKey(secretarias, on_delete=models.CASCADE)
-    sector = models.ForeignKey(sectores_inversion, on_delete=models.CASCADE)
-    estado = models.ForeignKey(estados_proyectos, on_delete=models.CASCADE)
-    archivo_proyecto = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
+    #valor_proyecto = models.DecimalField(max_digits=15, decimal_places=2)
+    #municipio = models.ForeignKey(municipios, on_delete=models.CASCADE)
+    #sector = models.ForeignKey(sectores_inversion, on_delete=models.CASCADE)
+    estado_actual = models.ForeignKey(estados_proyectos, on_delete=models.CASCADE)
+    #archivo_proyecto = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
     def __str__(self):
         return self.nombre_proyecto
 
@@ -45,12 +46,22 @@ class proyectos(models.Model):
 class asignar_proyectos(models.Model):
     fecha_asignacion = models.DateField()
     proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)    
-    detalle = models.TextField( null=True, blank=True)
-    archivo_asignado = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    #archivo_asignado = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
     def __str__(self):
         return self.proyecto.nombre_proyecto
 
+
+class informacion_proyecto(models.Model):
+    proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE)
+    identificador = models.CharField(max_length=200,unique=True) # id del proyecto desde la pagina miga
+    vigencia = models.IntegerField(max_length=10, null=False, blank=False)
+    valor_proyecto = models.DecimalField(max_digits=15, decimal_places=2)
+    municipio = models.ForeignKey(municipios, on_delete=models.CASCADE)
+    sector = models.ForeignKey(sectores_inversion, on_delete=models.CASCADE)
+    archivo_proyecto = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
+    def __str__(self):
+        return self.proyecto.nombre_proyecto
 
 
 class revisiones(models.Model):
@@ -58,7 +69,6 @@ class revisiones(models.Model):
     proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     estado_anterior = models.CharField(max_length=70)
-    nuevo_estado = models.CharField(max_length=70)
     detalle_revision = models.TextField( null=False, blank=True)
     archivo_revision = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
     def __str__(self):

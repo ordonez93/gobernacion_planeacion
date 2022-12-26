@@ -30,6 +30,10 @@ ALLOWED_HOSTS = []
 # envio de mensajeria
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage' 
 
+# redireciones del login
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,7 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'aplicaciones.gestion_proyectos',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
