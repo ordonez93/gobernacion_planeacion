@@ -10,4 +10,4 @@ def listar_proyectos(request):
     listar_proyectos = proyectos.objects.all()
     lista_secretarias = secretarias.objects.all()
     lista_revisores = User.objects.all()
-    return render(request, 'proyectos\prueba_formatos.html', {'proyectos': listar_proyectos,'secretarias': lista_secretarias, 'revisores': lista_revisores, "fecha": fecha_now.year})
+    return render(request, 'proyectos\listar_proyectos.html', {'proyectos': listar_proyectos,'secretarias': lista_secretarias, 'revisores': lista_revisores, "fecha": fecha_now.year})

@@ -37,7 +37,7 @@ class sectores_inversion(models.Model):
         db_table = 'sectores_inversion'
         ordering = ['-id']
 
-class estados_proyectos(models.Model):
+class estados(models.Model):
     nombre_estado = models.CharField(max_length=50)
     descripcion = models.TextField(null=True, blank=True)
     def __str__(self):
@@ -54,8 +54,8 @@ class proyectos(models.Model):
     fecha_ingreso = models.DateField()
     presentacion = models.CharField(max_length=50, null=False, blank=False) #nuevo o actualizacion
     secretaria = models.ForeignKey(secretarias, on_delete=models.CASCADE)
-    estado = models.ForeignKey(estados_proyectos, on_delete=models.CASCADE,null=False, blank=False)
-    revisor = models.ForeignKey(User, on_delete=models.CASCADE,null=True)# usuario que revisará el proyecto
+    #estado = models.ForeignKey(estados, on_delete=models.CASCADE,null=False, blank=False)
+    #revisor = models.ForeignKey(User, on_delete=models.CASCADE,null=True)# usuario que revisará el proyecto
     #archivo_proyecto = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
     def __str__(self):
         return self.nombre_proyecto
@@ -65,14 +65,24 @@ class proyectos(models.Model):
         db_table = 'proyectos'
         ordering = ['-id']
 
+
+
+class estados_proyectos(models.Model):
+    proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE)
+    estado = models.ForeignKey(estados, on_delete=models.CASCADE)
+    def __str__(self):
+        return {},{},{},format(self.proyecto.nombre_proyecto,self.estado.nombre_estado)
+
+
+
 # por si un proyecto tiene varios usuarios asignados
-"""class usuarios_proyectos(models.Model):
-    fecha_asignacion = models.DateField()
+class usuarios_proyectos(models.Model):
     proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    archivo_asignado = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
+    fecha_asignacion = models.DateField()
+    #archivo_asignado = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
     def __str__(self):
-        return self.proyecto.nombre_proyecto"""
+        return self.proyecto.nombre_proyecto
 
 
 class proyecto_archivo(models.Model):
