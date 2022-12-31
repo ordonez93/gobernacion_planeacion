@@ -1,5 +1,6 @@
 {% extends 'listar.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %} proyectos {% endblock %}
 
 {% block librearias %}
@@ -8,24 +9,8 @@
 
 {% block titulo_tabla %} Listado de proyectos {% endblock %}
 
-{% block titulo_modal %} Crear Nuevo proyectos {% endblock %}
-
-{% block formulario %}
-<form action="/nuevo_proyecto/" method="POST">
-    {% csrf_token %}
-    <label for="nombre_estado">Nombre del estado</label>
-    <div class="mb-3">
-        <input type="text" name="nombre_estado" id="txtnombreestado" minlength="4" required style="width: 100%;">
-    </div>
-   
-    <label for="nombre_estado">Agregar una descripción</label>
-    <div class="mb-3">
-        <textarea type="text" name="descripcion_estado" id="txtdescestado" placeholder="opcional" style="width: 100%;" ></textarea>
-    </div>
-    <div class="modal-footer">
-        <input class="btn btn-primary" type="submit" value="Guardar">
-    </div>
-</form>
+{% block btn-agregar %}
+<a class="mb-3 btn btn-outline-primary " href="/nuevo_proyecto/"><i class="fa-solid fa-plus"></i> Crear Proyecto</a>
 {% endblock %}
 
 {% block columas %}

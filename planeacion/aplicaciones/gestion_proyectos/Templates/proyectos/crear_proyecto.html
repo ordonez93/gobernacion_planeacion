@@ -1,0 +1,50 @@
+{% extends 'Layout.html' %}
+{% load static %}
+{% block title %} pruebas {% endblock %}
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header" style="text-align: center; background-color: #EAFAF1;">
+            <h3><i class="fa-solid fa-folder-plus"></i> Crear Proyecto </h3>
+            <p>(Nuevo o Actualiación)</p>
+        </div>
+        <div class="card-body">
+            <form action="/crear_proyecto/" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="bpin" class="form-label"><b>Bpin</b></label>
+                    <input type="text" class="form-control" name="bpin" id="bpin">
+                </div>
+                <div class="mb-4">
+                    <label for="nombre_proyecto" class="form-label"><b>Nombre del Proyecto</b></label>
+                    <textarea class="form-control" name="nombre_proyecto" id="nombre_proyecto" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="fecha_ingreso" class="form-label"><b>Fecha de ingreso</b></label>
+                    <input type="date" class="form-control" name="fecha_ingreso" id="fecha_ingreso">
+                </div>
+                <div class="mb-3">
+                    <label for="presentacion" class="form-label"><b>Presentacion</b></label>
+                    <select class="form-select" name="presentacion" id="">
+                        <option value="Nuevo">Nuevo</option>
+                        <option value="Actualiación">Actualización</option>
+                    </select>
+                    
+                </div>
+                <div class="mb-3">
+                <label for="secretaria" class="form-label"><b>Secretaría</b></label>
+                <select class="form-select" name="secretaria" id="">
+                    {% for secretaria in secretarias %}
+                    <option value="{{ secretaria.id }}"> {{ secretaria.nombre_secretaria }} </option>
+                    {% endfor %}
+                </select>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Crear Proyecto">
+            </form>
+            
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}

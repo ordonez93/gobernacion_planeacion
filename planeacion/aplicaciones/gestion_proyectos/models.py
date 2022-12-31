@@ -52,7 +52,7 @@ class proyectos(models.Model):
     bpin = models.CharField(max_length=200,unique=True,null=False,blank=False) # codigo de referencia del proyecto
     nombre_proyecto = models.TextField()
     fecha_ingreso = models.DateField()
-    presentacion = models.CharField(max_length=50, null=False, blank=False) #nuevo o actualizacion
+    presentacion = models.CharField(max_length=50)
     secretaria = models.ForeignKey(secretarias, on_delete=models.CASCADE)
     #estado = models.ForeignKey(estados, on_delete=models.CASCADE,null=False, blank=False)
     #revisor = models.ForeignKey(User, on_delete=models.CASCADE,null=True)# usuario que revisará el proyecto
