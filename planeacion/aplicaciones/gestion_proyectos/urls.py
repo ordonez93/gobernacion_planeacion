@@ -1,7 +1,7 @@
 from django.urls import path
 from aplicaciones.gestion_proyectos.views.tablas.views import *
 from aplicaciones.gestion_proyectos.views.login.views import *
-
+from aplicaciones.gestion_proyectos.views.proyectos.views import *
 urlpatterns = [
 
     # rutas de inicio y tablas
@@ -39,4 +39,7 @@ urlpatterns = [
 
     #login
     path('/acounts/login', login,name='login'),
+
+    #rutas proyectos
+    path('listar_proyectos/', listar_proyectos,name='listar_proyectos'),
 ]

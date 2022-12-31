@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'planeacion.wsgi.application'
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'planeacion_int',
+        'NAME': 'planeacion_db',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

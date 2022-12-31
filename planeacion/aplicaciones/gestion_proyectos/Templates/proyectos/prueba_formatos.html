@@ -1,0 +1,18 @@
+{% extends 'Layout.html' %}
+{% load static %}
+{% block title %} pruebas {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <input class="form" type="date">
+                    {% if user.is_authenticated %}
+                    <input class="form" type="text" value="{{ user.id }}">
+                    {% endif %}
+                    <input type="submit" value="enviar">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
