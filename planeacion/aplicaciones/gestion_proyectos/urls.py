@@ -44,4 +44,5 @@ urlpatterns = [
     path('nuevo_proyecto/', nuevo_proyecto,name='nuevo_proyecto'),
     path('listar_proyectos/', listar_proyectos,name='listar_proyectos'),
     path('crear_proyecto/', crear_proyecto,name='crear_proyecto'),
+    path('ver_estados/<bpin>/<int:id>', ver_estados,name='ver_estados'),
 ]

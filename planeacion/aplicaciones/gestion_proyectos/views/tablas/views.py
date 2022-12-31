@@ -196,7 +196,7 @@ def eliminar_sector(request):
 
 
 def listar_estados(request):
-    lista_estados = estados_proyectos.objects.all()
+    lista_estados = estados.objects.all()
     return render(request, 'tablas\listar_estados.html', {'estados':  lista_estados, "fecha": fecha_now.year})
 
 
@@ -204,7 +204,7 @@ def crear_estado(request):
     if request.method == 'POST':
         e = request.POST['nombre_estado']
         d = request.POST['descripcion_estado']
-        nuevo_estado = estados_proyectos()
+        nuevo_estado = estados()
         nuevo_estado.nombre_estado = e
         nuevo_estado.descripcion = d
         nuevo_estado.save()

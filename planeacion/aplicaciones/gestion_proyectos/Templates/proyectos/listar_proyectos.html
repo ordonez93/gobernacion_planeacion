@@ -19,8 +19,8 @@
 <th scope="col">Nombre</th>
 <th scope="col">Fecha ingreso</th>
 <th scope="col">Presentación</th>
-<th scope="col">Estado Actual</th>
-<th scope="col">Revisor</th>
+<th scope="col">Secretaría</th>
+
 <th scope="col">Acciones</th>
 {% endblock %}
 
@@ -33,16 +33,18 @@
     <td>{{proyecto.nombre_proyecto}}</td>
     <td>{{proyecto.fecha_ingreso}}</td>
     <td>{{proyecto.presentacion}}</td>
-    <td>{{ proyecto.estado }}</td>   
-    <td>{{ proyecto.revisor }}</td>
+    <td>{{proyecto.secretaria}}</td>
+
     <td>
-        <button type="button" onclick="EditarRegistro('{{proyecto.id}}','{{proyecto.nombre_proyecto}}')"
-            class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill"><i
-                class="fa-regular fa-pen-to-square"></i></button>
+        <a class="btn-sm btn btn-outline-info me-2 mb-2 rounded-pill" href="/ver_estados/{{proyecto.bpin}}/{{proyecto.id}}"><i 
+            class="fa-solid fa-eye"></i> Estado</a>
 
-        <button type="button" onclick="EliminarRegistro('{{proyecto.id}}','{{proyecto.nombre_proyecto}}')"
-        class="btn-sm btn btn-outline-danger me-2 mb-2 rounded-pill"><i class="fa-solid fa-trash-can"></i></button>
+        <a class="btn-sm btn btn-outline-success me-2 mb-2 rounded-pill" href="#"><i 
+            class="fa-solid fa-user-plus"></i> Asignar</a>
 
+        <a class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill" href="#"><i
+            class="fa-regular fa-pen-to-square"></i> Editar</a>
+        
     </td>
 </tr>
 <!-- Modal para modificar Registros-->
@@ -50,7 +52,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color:rgb(249, 247, 247);">
-                <h5 class="modal-title">Cambiar el nombre a <span style="background-color: yellow;"
+                <h5 class="modal-title">Cambiar el nombre a <span type="text" style="background-color: yellow;"
                         id="nombre-registro"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>

@@ -46,7 +46,6 @@ class estados(models.Model):
         verbose_name_plural = 'estados_proyectos'
         verbose_name = 'estados_proyectos'
         db_table = 'estados_proyectos'
-        ordering = ['-id']
 
 class proyectos(models.Model):
     bpin = models.CharField(max_length=200,unique=True,null=False,blank=False) # codigo de referencia del proyecto
