@@ -1,0 +1,41 @@
+{% extends 'listar.html' %}
+{% load static %}
+{% block title %} pruebas {% endblock %}
+
+{% block titulo_tabla %} Proyectos asignados por usuario {% endblock %}
+
+{% block btn-agregar %}
+<a class="btn btn-secondary mb-4" href="/listar_proyectos/"><i class="fa-solid fa-arrow-left"></i> Volver al listado</a>
+
+{% endblock %}
+
+{% block columas %}
+<th scope="col">Bpin</th>
+<th scope="col">Proyecto</th>
+<th scope="col">Usuario Asignado</th>
+<th scope="col">Fecha Asigancion</th>
+<th scope="col">Acciones</th>
+{% endblock %}
+{% block filas %}
+{% for proyecto in proyectos %}
+{% for p_u in proyecto_usuario %}
+{% if proyecto.id == p_u.proyecto_id %}
+
+<tr>
+    <td>{{proyecto.bpin}}</td>
+    <td>{{proyecto.nombre_proyecto}}</td>
+    {% if p_u.usuario_id == 2 %}
+    <td style="background-color: rgb(246, 255, 0);">{{p_u.usuario}}</td>
+    {% else %}
+    <td>{{p_u.usuario}}</td>
+    {% endif %}
+    <td>{{p_u.fecha_asignacion}}</td>
+
+    <td>
+        <a class="btn-sm btn btn-outline-success me-2 mb-2" href="#"><i class="fa-solid fa-user-plus"></i> Asignar</a>
+    </td>
+</tr>
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endblock %}

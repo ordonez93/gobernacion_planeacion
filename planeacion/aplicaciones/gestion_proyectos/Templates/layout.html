@@ -38,11 +38,16 @@
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
               <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button" href="/">Inicio</a>
               <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button" href="/listar_proyectos/">Proyectos</a>
-              <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button">Asignaciones</a>
+              <a type="button" class="btn btn-outline-primary rounded-pill position-relative mb-2 me-2" href="/listar_asignaciones/">
+                Asignaciones
+                <span  id="cant" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                </span>
+              </a>
               <a class="btn btn-outline-primary me-2 mb-2 rounded-pill" type="button">Revisiones</a>
               <a class="btn btn-outline-success me-2 mb-2 rounded-pill" type="button" href="/tablas/" >Tablas</a>
               {% if user.is_authenticated %}
               <a class="btn btn-outline-danger me-2 mb-2 rounded-pill" type="button" href="/accounts/logout/" ><i class="fa-solid fa-user"></i>Salir @{{ user.username }}</a>
+              <input type="hidden" id="id_usuario" value="{{ user.id }}">
               {% else %}
               <a class="btn btn-outline-success me-2 mb-2 rounded-pill" type="button" href="/accounts/login/" >Iniciar sesión</a>
               {% endif %}
@@ -86,9 +91,7 @@
     <!-- aquí los scripts-->
    
     {% endblock %}
-
-
-
-
+  
+  <script src="{% static '/js/index.js' %}" ></script>
 </body>
 </html>

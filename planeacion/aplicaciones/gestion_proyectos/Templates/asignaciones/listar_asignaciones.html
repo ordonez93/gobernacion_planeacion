@@ -1,0 +1,49 @@
+{% extends 'listar.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Asignaciones {% endblock %}
+
+{% block librearias %}
+
+{% endblock %}
+
+{% block titulo_tabla %} Listado de proyectos asignados {% endblock %}
+
+{% block btn-agregar %}
+
+<a class="mb-3 btn btn-outline-success " href="#"><i class="fa-solid fa-list-check"></i></i> Ver revisiones</a>
+
+
+{% endblock %}
+
+{% block columas %}
+<th scope="col">id</th>
+<th scope="col">BPIN</th>
+<th scope="col">Nombre proyecto</th>
+<th scope="col">Fecha ingreso</th>
+<th scope="col">Acciones</th>
+{% endblock %}
+
+{% block filas %}
+
+{% for proyecto in proyectos %}
+
+
+<tr>
+    <th scope="row">{{proyecto.id}}</th>
+    <td>{{proyecto.bpin}}</td>
+    <td>{{proyecto.nombre_proyecto}}</td>
+    <td>{{proyecto.fecha_ingreso}}</td>
+
+    <!--<td>{{proyecto.secretaria}}</td> -->
+    <td>
+        <a class="btn-sm btn btn-outline-info me-2 mb-2 rounded-pill" href="#"><i 
+            class="fa-solid fa-eye"></i> Revisar</a>
+        <a class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill" href="#"><i
+            class="fa-regular fa-pen-to-square"></i> Editar</a>
+        
+    </td>
+</tr>
+
+{% endfor %}
+{% endblock %}

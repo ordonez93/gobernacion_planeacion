@@ -87,7 +87,7 @@ class usuarios_proyectos(models.Model):
 class proyecto_archivo(models.Model):
     proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE, null=False, blank=False)
     identificador = models.CharField(max_length=200,unique=True) # id del proyecto desde la pagina miga
-    vigencia = models.IntegerField(max_length=10, null=False, blank=False)#si la vigencia es diferente al año actual, el se debe guardar como nuevo registro en esta tabla
+    vigencia = models.IntegerField(null=False, blank=False)#si la vigencia es diferente al año actual, el se debe guardar como nuevo registro en esta tabla
     valor_proyecto = models.DecimalField(max_digits=15, decimal_places=2)
     municipio= models.ForeignKey(municipios, on_delete=models.CASCADE, null=False, blank=False)
     sector = models.ForeignKey(sectores_inversion, on_delete=models.CASCADE,null=False, blank=False)

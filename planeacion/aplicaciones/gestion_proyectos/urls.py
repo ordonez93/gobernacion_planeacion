@@ -2,11 +2,13 @@ from django.urls import path
 from aplicaciones.gestion_proyectos.views.tablas.views import *
 from aplicaciones.gestion_proyectos.views.login.views import *
 from aplicaciones.gestion_proyectos.views.proyectos.views import *
+from aplicaciones.gestion_proyectos.views.asignaciones.views import *
 urlpatterns = [
 
     # rutas de inicio y tablas
     path('', inicio, name="inicio"),
     path('tablas/', tablas,name='tablas'),
+    path('cantidad_asignaciones/<int:id>', cantidad_asignaciones,name='cantidad_asignaciones'),
 
     #rutas para la gestion de municipios
     path('listar_municipios/', listar_municipio,name='listar_municipios'),
@@ -38,11 +40,16 @@ urlpatterns = [
     path('eliminar_nota/<int:id_nota>', eliminar_nota,name='eliminar_nota'),
 
     #login
-    path('/acounts/login', login,name='login'),
+    path('acounts/login', login,name='login'),
 
     #rutas proyectos
     path('nuevo_proyecto/', nuevo_proyecto,name='nuevo_proyecto'),
     path('listar_proyectos/', listar_proyectos,name='listar_proyectos'),
     path('crear_proyecto/', crear_proyecto,name='crear_proyecto'),
-    path('ver_estados/<bpin>/<int:id>', ver_estados,name='ver_estados'),
+    
+    #rutas de asignaciones
+    path('nuevo_asignar/<int:id>', nuevo_asignar,name='nuevo_asignar'),
+    path('ver_asignados/', ver_asignados,name='ver_asignados'),
+    path('asignar_proyecto/', asignar_proyecto,name='asignar_proyecto'),
+    path('listar_asignaciones/', listar_asignaciones,name='listar_asignaciones'),
 ]

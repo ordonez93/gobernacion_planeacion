@@ -20,8 +20,8 @@ def inicio(request):
     lista_notas = notas.objects.all()
     return render(request, 'inicio.html', {"fecha": fecha_now.year, 'notas':  lista_notas})
 
-# funciones de municipios ----------------------------------------------
 
+# funciones de municipios ----------------------------------------------
 
 def listar_municipio(request):
     lista_municipios = municipios.objects.all()
