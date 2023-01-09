@@ -1,49 +1,39 @@
 {% extends 'listar.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
-{% block title %} Asignaciones {% endblock %}
+{% block title %} Asignados {% endblock %}
 
-{% block librearias %}
-
-{% endblock %}
-
-{% block titulo_tabla %} Listado de proyectos asignados {% endblock %}
+{% block titulo_tabla %} Listado de Proyectos asignados {% endblock %}
 
 {% block btn-agregar %}
-
-<a class="mb-3 btn btn-outline-success " href="#"><i class="fa-solid fa-list-check"></i></i> Ver revisiones</a>
-
+<a class="mb-3 btn btn-outline-success " href="#"><i class="fa-solid fa-list-check"></i></i> Ver Revisiones</a>
 
 {% endblock %}
 
 {% block columas %}
-<th scope="col">id</th>
-<th scope="col">BPIN</th>
-<th scope="col">Nombre proyecto</th>
-<th scope="col">Fecha ingreso</th>
+<th scope="col">Bpin</th>
+<th scope="col">Proyecto</th>
+<th scope="col">fecha creacion</th>
+<th scope="col">Presentación</th>
 <th scope="col">Acciones</th>
 {% endblock %}
-
 {% block filas %}
-
 {% for proyecto in proyectos %}
-
+{% for p_u in proyecto_usuario %}
+{% if proyecto.id == p_u.proyecto_id %}
+{% if p_u.usuario_id == user.id %}
 
 <tr>
-    <th scope="row">{{proyecto.id}}</th>
     <td>{{proyecto.bpin}}</td>
     <td>{{proyecto.nombre_proyecto}}</td>
     <td>{{proyecto.fecha_ingreso}}</td>
-
-    <!--<td>{{proyecto.secretaria}}</td> -->
+    <td>{{proyecto.presentacion}}</td>
     <td>
-        <a class="btn-sm btn btn-outline-info me-2 mb-2 rounded-pill" href="#"><i 
+        <a class="btn-sm btn btn-outline-info me-2 mb-2 rounded-pill" href="/llenar_info/{{proyecto.id}}"><i 
             class="fa-solid fa-eye"></i> Revisar</a>
-        <a class="btn-sm btn btn-outline-warning me-2 mb-2 rounded-pill" href="#"><i
-            class="fa-regular fa-pen-to-square"></i> Editar</a>
-        
     </td>
 </tr>
-
+{% endif %}
+{% endif %}
+{% endfor %}
 {% endfor %}
 {% endblock %}

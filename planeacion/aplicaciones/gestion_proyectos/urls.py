@@ -3,6 +3,7 @@ from aplicaciones.gestion_proyectos.views.tablas.views import *
 from aplicaciones.gestion_proyectos.views.login.views import *
 from aplicaciones.gestion_proyectos.views.proyectos.views import *
 from aplicaciones.gestion_proyectos.views.asignaciones.views import *
+from aplicaciones.gestion_proyectos.views.revisiones.views import *
 urlpatterns = [
 
     # rutas de inicio y tablas
@@ -26,6 +27,7 @@ urlpatterns = [
     #rutas para la gestion de sectores de inversión
     path('listar_sectores/', listar_sectores,name='listar_sectores'),
     path('nuevo_sector/', crear_sector,name='nueva_secretaria'),
+    path('nuevo_sector2/<int:id>', crear_sector2,name='nueva_secretaria'),
     path('editar_sector/', editar_sector,name='editar_sector'),
     path('eliminar_sector/', eliminar_sector,name= 'eliminar_sector'),
 
@@ -52,4 +54,7 @@ urlpatterns = [
     path('ver_asignados/', ver_asignados,name='ver_asignados'),
     path('asignar_proyecto/', asignar_proyecto,name='asignar_proyecto'),
     path('listar_asignaciones/', listar_asignaciones,name='listar_asignaciones'),
+
+    #rutas de revisiones
+    path('llenar_info/<int:id>', llenar_info,name='llenar_info'),
 ]
