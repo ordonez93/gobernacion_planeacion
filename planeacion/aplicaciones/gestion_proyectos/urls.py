@@ -57,4 +57,8 @@ urlpatterns = [
 
     #rutas de revisiones
     path('llenar_info/<int:id>', llenar_info,name='llenar_info'),
+    path('nueva_revision/<int:id>',nueva_revision,name='revisiones'),
+    path('guardar_info/', guardar_info,name='guardar_info'),
+    path('crear_revision/', crear_revision,name='crear_revision'),
+    path('listar_revisiones/', listar_revisiones,name='listar_revisiones'),
 ]

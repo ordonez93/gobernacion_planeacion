@@ -106,7 +106,8 @@ class revisiones(models.Model):
     proyecto = models.ForeignKey(proyectos, on_delete=models.CASCADE, null=False, blank=False)
     estado_anterior = models.CharField(max_length=70)
     detalle_revision = models.TextField( null=False, blank=True)
-    archivo_revision = models.FileField(upload_to='static/archivos_proyectos', null=True, blank=True)
+    revisor = models.CharField(max_length=70, null=False, blank=False)
+    archivo_revision = models.FileField(upload_to='archivos_revisiones/', null=True, blank=True)
     def __str__(self):
         return self.proyecto.nombre_proyecto
     class meta:

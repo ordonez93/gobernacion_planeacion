@@ -37,8 +37,7 @@ def crear_proyecto(request):
             nombre_proyecto = request.POST['nombre_proyecto']
             fecha_ingreso = request.POST['fecha_ingreso']
             presentacion = request.POST['presentacion']
-            secretaria = secretarias.objects.get(
-                id=int(request.POST['secretaria']))
+            secretaria = secretarias.objects.get(id=int(request.POST['secretaria']))
             n_proyecto = proyectos()
             n_proyecto.bpin = bpin
             n_proyecto.nombre_proyecto = nombre_proyecto

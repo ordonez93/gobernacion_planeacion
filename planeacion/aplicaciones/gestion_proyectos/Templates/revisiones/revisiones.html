@@ -1,0 +1,48 @@
+{% extends 'Layout.html' %}
+{% load static %}
+{% block title %} informacion proyecto {% endblock %}
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header" style="text-align: center;">
+            <h3><i class="fa-solid fa-folder-plus"></i> Crear nueva revision </h3>
+        </div>
+        <div class="card-body">
+            <form class="form" action="/crear_revision/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div >
+                    
+                    <input type="hidden" name="proyecto_id" value="{{proyectos.id}}">
+                    <input type="hidden" name="revisor" value="{{user.username}}">
+                    <input type="hidden" name="estado_anterior" value="{{estado}}">
+                </div>
+                <div class="mb-4">
+                    <label for="detalle_revision" class="form-label"><b>Detalle de la revisión</b></label>
+                    <textarea class="form-control" name="detalle_revision" id="detalle_revision" rows="3"></textarea>
+                </div>
+
+                <div class="mb-5">
+                    <label for="archivo_revision" class="form-label"><b>Adjunto</b></label>
+                    <input type="file" class="form-file form-control" name="archivo_revision">
+                </div>
+
+                <div class="mb-3">
+                <label for="secretaria" class="form-label"><b>Cambiar el estado a:</b></label>
+                <select class="form-select" name="estado" id="">
+                    <option selected>Seleccione un estado</option>
+                    {% for e in estados %}
+                    <option value="{{ e.id }}"> {{ e.nombre_estado }} </option>
+                    {% endfor %}
+                </select>
+                </div>
+                <div class="card-footer">
+                    <input class="btn btn-primary" type="submit" value="Guardar revision">  
+                </div>  
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
+
+{% endblock %}

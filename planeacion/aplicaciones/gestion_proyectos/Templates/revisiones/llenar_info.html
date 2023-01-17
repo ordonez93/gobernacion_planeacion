@@ -11,87 +11,93 @@
         </div>
         <div class="card-body">
             <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="id_mga" class="form-label" ><b>ID proyecto</b></label>
-                        <input type="number" class="form-control" name="id_pagina" required autofocus>
-                    </div>
-                    <label for="secretaria" class="form-label"><b>Vigencia</b></label>
-                    <select class="form-select mb-3" name="vigencia" id="">
-                        {% for v in anios %}
-                        {% if v == anio_actual %}
-                        <option value="{{ v }}" selected> {{ v }} </option>
-                        {% else %}
-                        <option value="{{ v }}"> {{ v }} </option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                    <div class="mb-3">
-                        <label for="valor" class="form-label"><b>Valor del proyecto</b></label>
-                        <input type="number" class="form-control" name="valor" required >
-                    </div>
-    
-                    <div class="mb-3">
-                    <label for="secretaria" class="form-label"><b>Municipio</b></label>
-                    <select class="form-select" name="secretaria" id="">
-                        <option selected > Seleccione un Municipio </option>
-                        {% for m in municipios %}
-                        <option value="{{ m.id }}"> {{ m.nombre_municipio }} </option>
-                        {% endfor %}
-                    </select>
-                    </div>
-                    <div class="mb-3">
-                    <label for="secretaria" class="form-label "><b>Sector de inversión</b></label>
-                    <a type="button" href="#" data-bs-toggle="modal" data-bs-target="#crear_reg"  class="badge bg-info btn "><i class="fa-sharp fa-solid fa-plus"></i> Crear nuevo sector</a>
-                    <select class="form-select" name="secretaria" id="">
-                        <option selected > Seleccione el sector de inversión </option>
-                        {% for e in sectores %}
-                        <option value="{{ e.id }}"> {{ e.nombre_sector }} </option>
-                        {% endfor %}
-                    </select>
-                    </div>
-                    <input class="btn btn-primary" type="submit" value="Guardar información">
-                </form>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+                    <form action="/guardar_info/" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_mga" class="form-label"><b>ID proyecto</b></label>
+                            <input type="number" class="form-control" name="id_plataforma" required autofocus>
+                        </div>
+                        <label for="secretaria" class="form-label"><b>Vigencia</b></label>
+                        <select class="form-select mb-3" name="vigencia" id="">
+                            {% for v in anios %}
+                            {% if v == anio_actual %}
+                            <option value="{{ v }}" selected> {{ v }} </option>
+                            {% else %}
+                            <option value="{{ v }}"> {{ v }} </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                        <div class="mb-3">
+                            <label for="valor" class="form-label"><b>Valor del proyecto</b></label>
+                            <input type="number" class="form-control" name="valor" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="secretaria" class="form-label"><b>Municipio</b></label>
+                            <select class="form-select" name="municipio" id="">
+                                <option selected> Seleccione un Municipio </option>
+                                {% for m in municipios %}
+                                <option value="{{ m.id }}"> {{ m.nombre_municipio }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="secretaria" class="form-label "><b>Sector de inversión</b></label>
+                            <a type="button" href="#" data-bs-toggle="modal" data-bs-target="#crear_reg"
+                                class="badge bg-info btn "><i class="fa-sharp fa-solid fa-plus"></i> Crear nuevo
+                                sector</a>
+                            <select class="form-select" name="sector" id="">
+                                <option selected> Seleccione el sector de inversión </option>
+                                {% for e in sectores %}
+                                <option value="{{ e.id }}"> {{ e.nombre_sector }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <input type="hidden" name="id_proyecto" value="{{id}}">
+
+                        <input class="btn btn-primary" type="submit" value="Guardar información">
+                    </form>
                 </div>
 
-            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
-            <div style="background-color: rgb(239, 243, 239);" class="section">
-                <div class="mb-3">
-                    <h5 style="text-align: center;"><b>Información base del proyecto</b></h5>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+                    <div style="background-color: rgb(239, 243, 239);" class="section">
+                        <div class="mb-3">
+                            <h5 style="text-align: center;"><b>Información base del proyecto</b></h5>
+                        </div>
+                        {% for p in proyecto %}
+
+                        <div class="mb-3">
+                            <label for="bpin" class="form-label"><b>Bpin</b></label>
+                            <input readonly type="text" class="form-control" name="bpin" id="bpin" value="{{p.bpin}}">
+                        </div>
+                        <div class="mb-4">
+                            <label for="nombre_proyecto" class="form-label"><b>Nombre del Proyecto</b></label>
+                            <textarea readonly class="form-control" name="nombre_proyecto" id="nombre_proyecto"
+                                rows="3">{{p.nombre_proyecto}}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_ingreso" class="form-label"><b>Fecha de ingreso</b></label>
+                            <input readonly class="form-control" name="fecha_ingreso" value="{{p.fecha_ingreso}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="presentacion" class="form-label"><b>Presentacion</b></label>
+                            <input readonly class="form-control" name="presentacion" value="{{p.presentacion}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="secretaria" class="form-label"><b>Secretaría</b></label>
+                            <input readonly class="form-control" name="presentacion" value="{{p.secretaria}}">
+                        </div>
+
+                    </div>
+                    {% endfor %}
                 </div>
-                {% for p in proyecto %}
-                
-                <div class="mb-3">
-                    <label for="bpin" class="form-label"><b>Bpin</b></label>
-                    <input readonly type="text" class="form-control" name="bpin" id="bpin" value="{{p.bpin}}">
-                </div>
-                <div class="mb-4">
-                    <label for="nombre_proyecto" class="form-label"><b>Nombre del Proyecto</b></label>
-                    <textarea readonly class="form-control" name="nombre_proyecto" id="nombre_proyecto" rows="3">{{p.nombre_proyecto}}</textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="fecha_ingreso" class="form-label"><b>Fecha de ingreso</b></label>
-                    <input readonly class="form-control" name="fecha_ingreso" value="{{p.fecha_ingreso}}">
-                </div>
-                <div class="mb-3">
-                    <label for="presentacion" class="form-label"><b>Presentacion</b></label>
-                    <input readonly class="form-control" name="presentacion" value="{{p.presentacion}}">
-                </div>
-                <div class="mb-3">
-                    <label for="secretaria" class="form-label"><b>Secretaría</b></label>
-                    <input readonly class="form-control" name="presentacion" value="{{p.secretaria}}">
-                </div>
-                <input style="visibility: hidden;" type="text" name="id_proyecto" value="{{p.id}}">
+
             </div>
-            {% endfor %}
-            </div>
-
-        </div>
 
 
-           
+
         </div>
 
         <div class="modal fade" id="crear_reg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -107,15 +113,16 @@
                             {% csrf_token %}
                             <label for="nombre_sector">Nombre del sector</label>
                             <div class="mb-3">
-                                <input type="text" name="nombre_sector" id="txtnombresector" minlength="4" required style="width: 100%;">
+                                <input type="text" name="nombre_sector" id="txtnombresector" minlength="4" required
+                                    style="width: 100%;">
                             </div>
                             <div class="modal-footer">
                                 <input class="btn btn-primary" type="submit" value="Guardar">
                             </div>
-                        {% endfor %}
+                            {% endfor %}
                         </form>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -123,7 +130,5 @@
     </div>
 </div>
 <br>
-<script>
-    //alert("este proyecto no tiene información complementaria, debes cargar su información para realizar revisiones");
-</script>
+
 {% endblock %}

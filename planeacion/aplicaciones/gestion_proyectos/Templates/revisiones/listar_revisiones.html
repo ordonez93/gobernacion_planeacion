@@ -1,0 +1,64 @@
+{% extends 'listar.html' %}
+{% load static %}
+{% block title %} Revisiones {% endblock %}
+
+{% block btn-agregar %}
+
+{% endblock %}
+
+
+{% block titulo_tabla %} Listado de Revisiones {% endblock %}
+
+{% block columas %}
+<th scope="col">Fecha revisión</th>
+<th scope="col">Bpin proyecto</th>
+<!--<th scope="col">Proyecto</th>-->
+<th scope="col">Estado anterior </th>
+<th scope="col">Estado actual</th>
+<th scope="col">Obervación</th>
+<th scope="col">Revisor</th>
+<th scope="col">Adj</th>
+
+{% endblock %}
+
+{% block filas %}
+
+{% for revision in revisiones %}
+{% for proyecto in proyectos %}
+{% for estado in estados %}
+{% for proyecto_estado in proyectos_estados %}
+{% if  revision.proyecto_id == proyecto.id %}
+{% if proyecto_estado.proyecto_id == proyecto.id %}
+{% if  proyecto_estado.estado_id == estado.id %}
+
+<tr>
+    <th scope="row">{{revision.fecha_revision}}</th>
+    <td>{{proyecto.bpin}}</td>
+    <!--<td></td> {{revision.proyecto}} -->
+    <td>{{revision.estado_anterior}}</td>
+    
+    <td>{{estado.nombre_estado}}</td>
+    
+    <td>{{revision.detalle_revision}}</td>
+    <td>{{revision.revisor}}</td>
+    <script> 
+        function ver_adjunto (URL){ 
+           window.open(URL,"Adjunto") 
+        } 
+    </script>
+    {% if revision.archivo_revision %}
+    <td><a class="btn-sm btn btn-outline-info me-2 mb-2 rounded-pill" href="javascript:ver_adjunto('/archivos_adjuntos/{{revision.archivo_revision}}')"><i class="fa-solid fa-paperclip"></i></a></td>
+    {% else %}
+    <td></td>
+    {% endif %}    
+    
+</tr>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
+{% endblock %}
