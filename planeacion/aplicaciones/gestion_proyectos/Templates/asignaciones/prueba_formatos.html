@@ -1,41 +1,109 @@
-{% extends 'listar.html' %}
 {% load static %}
-{% block title %} pruebas {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>datatable</title>
+    <link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\bootstrap.min.css' %}">
+    <!-- estilos datatable -->
+    <link rel="stylesheet" href="{% static 'lib\datatables-1.10.20\css\jquery.dataTables.min.css' %}">
+    
+    <!-- enlaces locales de script-->
+    <script src="{% static 'lib\bootstrap-5.0.2-dist\js\bootstrap.min.js' %}"></script>
+    <script src="{% static 'lib\bootstrap-5.0.2-dist\js\jquery.min.js' %}"></script>
+    <script src="{% static 'lib\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js' %}"></script>
+    
+    <!-- enlace de script datatable-->
+   
 
-{% block titulo_tabla %} Proyectos asignados por usuario {% endblock %}
+    <link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\jquery.dataTables.min.css' %}">
+   
 
-{% block btn-agregar %}
-<a class="btn btn-secondary mb-4" href="/listar_proyectos/"><i class="fa-solid fa-arrow-left"></i> Volver al listado</a>
+   
+</head>
+<body>
+    <div class="container">
+        <br>
+        <div class="card">
+            <div class="card-header">
+                tabla ejemplo
+            </div>
+            <div class="card-body">
+                <table class="table" id="example">
+                    <thead>
+                      <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>email</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>pedro</td>
+                        <td>solis</td>
+                        <td>email</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>carlos</td>
+                        <td>soto</td>
+                        <td>email</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+   
+    <script src="{% static 'js\modales.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/DataTables/datatables.min.js' %}"></script>   
+    <script src="{% static 'lib/DataTables/Buttons-2.3.3/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'lib/pdfmake-0.1.36/pdfmake.min.js' %}"></script>
+    <script src="{% static 'lib/DataTables/pdfmake-0.1.36/vfs_fonts.js' %}"></script>
+    <script src="{% static 'lib/DataTables/JSZip-2.5.0/jszip.min.js' %}"></script>    
+    <script src="{% static 'lib/DataTables/Buttons-2.3.3/js/buttons.html5.min.js' %}"></script>
+    <!-- cadena de incrustacion de iconos, no fue posible la descarga del archivo js -->
+    <script src="https://kit.fontawesome.com/55030b9749.js" crossorigin="anonymous"></script>
+    
+    <script>
+  
+    $(document).ready(function() {    
+    $('#example').DataTable({        
 
-{% endblock %}
-
-{% block columas %}
-<th scope="col">Bpin</th>
-<th scope="col">Proyecto</th>
-<th scope="col">Usuario Asignado</th>
-<th scope="col">Fecha Asigancion</th>
-<th scope="col">Acciones</th>
-{% endblock %}
-{% block filas %}
-{% for proyecto in proyectos %}
-{% for p_u in proyecto_usuario %}
-{% if proyecto.id == p_u.proyecto_id %}
-
-<tr>
-    <td>{{proyecto.bpin}}</td>
-    <td>{{proyecto.nombre_proyecto}}</td>
-    {% if p_u.usuario_id == 2 %}
-    <td style="background-color: rgb(246, 255, 0);">{{p_u.usuario}}</td>
-    {% else %}
-    <td>{{p_u.usuario}}</td>
-    {% endif %}
-    <td>{{p_u.fecha_asignacion}}</td>
-
-    <td>
-        <a class="btn-sm btn btn-outline-success me-2 mb-2" href="#"><i class="fa-solid fa-user-plus"></i> Asignar</a>
-    </td>
-</tr>
-{% endif %}
-{% endfor %}
-{% endfor %}
-{% endblock %}
+        //para usar los botones   
+        responsive: "true",
+        dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fas fa-file-excel"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fas fa-file-pdf"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	        
+    });     
+});
+    </script>
+</body>
+</html>

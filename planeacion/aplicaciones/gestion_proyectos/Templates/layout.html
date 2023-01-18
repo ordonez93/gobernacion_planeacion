@@ -7,23 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} Inicio {% endblock %}</title>
     <link rel="icon" href="https://www.putumayo.gov.co/images/favicon.ico">
-    <!-- estilos locales -->
     
+    <!-- estilos locales -->
     <link rel="stylesheet" href="{% static 'lib\bootstrap-5.0.2-dist\css\bootstrap.min.css' %}">
+    <!-- estilos datatable -->
     <link rel="stylesheet" href="{% static 'lib\datatables-1.10.20\css\jquery.dataTables.min.css' %}">
+    
     <!-- enlaces locales de script-->
-
     <script src="{% static 'lib\bootstrap-5.0.2-dist\js\bootstrap.min.js' %}"></script>
     <script src="{% static 'lib\bootstrap-5.0.2-dist\js\jquery.min.js' %}"></script>
     <script src="{% static 'lib\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js' %}"></script>
     
+    <!-- enlace de script datatable-->
     <script src="{% static 'lib\datatables-1.10.20\js\jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'js\funciones_generales.js' %}"></script>
    
     <!-- cadena de incrustacion de iconos, no fue posible la descarga del archivo js -->
     <script src="https://kit.fontawesome.com/55030b9749.js" crossorigin="anonymous"></script>
     {% block librerias %}
-    <!-- aquí las librearias-->
+    <!-- aquí las librearias para cada template-->
     
     {% endblock %}
 </head>
@@ -57,7 +59,7 @@
         </div>
       </nav>
 
-      <!--enlace de cadena para aletar responsive-->
+      <!--enlace de cadena para aletas responsive-->
       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       {% if messages %}
       {% for message in messages %}
@@ -69,14 +71,10 @@
           
         })
       </script>
-
       {% endfor %}
       {% endif %}
       <div style="background-color: rgb(33, 57, 57);">
       {% block content %}
-
- 
-
       {% endblock %}
     </div>
     <div class="card text-white bg-dark mb-3" style="width: auto;;">

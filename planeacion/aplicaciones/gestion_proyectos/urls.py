@@ -61,4 +61,7 @@ urlpatterns = [
     path('guardar_info/', guardar_info,name='guardar_info'),
     path('crear_revision/', crear_revision,name='crear_revision'),
     path('listar_revisiones/', listar_revisiones,name='listar_revisiones'),
+
+
+    path('prueba/', prueba,name='prueba')
 ]

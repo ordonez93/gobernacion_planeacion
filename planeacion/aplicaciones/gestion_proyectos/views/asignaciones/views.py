@@ -75,3 +75,6 @@ def listar_asignaciones(request):
     lista_proyectos = proyectos.objects.all()
     proyectos_por_usuario = usuarios_proyectos.objects.all()
     return render(request, 'asignaciones\listar_asignaciones.html', {'proyectos': lista_proyectos, 'proyecto_usuario': proyectos_por_usuario})
+
+def prueba(request):
+    return render(request, 'asignaciones\prueba_formatos.html')
