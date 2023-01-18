@@ -1,0 +1,38 @@
+{% extends 'listar.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} informacion {% endblock %}
+
+{% block librearias %}
+
+{% endblock %}
+
+{% block titulo_tabla %} Información complementaria del proyecto {% endblock %}
+
+{% block btn-agregar %}
+<a class="btn btn-secondary mb-4" href="/listar_proyectos/"><i class="fa-solid fa-arrow-left"></i> Volver al listado</a>
+{% endblock %}
+
+{% block columas %}
+<th scope="col">Id plataforma</th>
+<th scope="col">Secretaría</th>
+<th scope="col">Sector de inversion</th>
+<th scope="col">Municipio</th>
+<th scope="col">Valor del proyecto</th>
+<th scope="col">Vigencia</th>
+
+{% endblock %}
+
+{% block filas %}
+
+
+<tr>
+    <th scope="row">{{identificador}}</th>
+    <td>{{secretaria}}</td>
+    <td>{{sector_invercion}}</td>
+    <td>{{municipio}}</td>
+    <td>{{valor_proyecto}}</td>
+    <td>{{vigencia}}</td>
+</tr>
+
+{% endblock %}

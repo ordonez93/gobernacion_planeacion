@@ -48,6 +48,7 @@ urlpatterns = [
     path('nuevo_proyecto/', nuevo_proyecto,name='nuevo_proyecto'),
     path('listar_proyectos/', listar_proyectos,name='listar_proyectos'),
     path('crear_proyecto/', crear_proyecto,name='crear_proyecto'),
+    path('info_completa/<int:id>', info_completa,name='info_completa'),
     
     #rutas de asignaciones
     path('nuevo_asignar/<int:id>', nuevo_asignar,name='nuevo_asignar'),

@@ -6,14 +6,6 @@ from ...models import *
 import datetime
 from django import forms
 
-
-class proyectosForm(forms.ModelForm):
-
-    class Meta:
-        model = proyectos
-        fields = '__all__'
-
-
 fecha_now = datetime.datetime.now()
 
 # crud de proyectos
@@ -24,11 +16,9 @@ def listar_proyectos(request):
     proyectos_por_usuario = usuarios_proyectos.objects.all()
     return render(request, 'proyectos\listar_proyectos.html', {'proyectos': lista_proyectos, 'estados': listar_estados, 'proyecto_usuario': proyectos_por_usuario})
 
-
 def nuevo_proyecto(request):
     listar_secretarias = secretarias.objects.all()
     return render(request, 'proyectos\crear_proyecto.html', {'secretarias': listar_secretarias})
-
 
 def crear_proyecto(request):
     if request.method == 'POST':
@@ -65,5 +55,24 @@ def crear_proyecto(request):
             return redirect(to=nuevo_proyecto)
     else:
         messages.error(request, 'la solicitud no se pudo enviar')
+        return redirect(to=listar_proyectos)
+
+def info_completa(request, id):
+    if request.method == 'GET':
+        if proyecto_archivo.objects.filter(proyecto=id).exists():
+            proyecto = proyectos.objects.get(id=id)
+            info_proyecto = proyecto_archivo.objects.get(proyecto=id)
+            municipio = info_proyecto.municipio.nombre_municipio
+            sector_inversion = info_proyecto.sector.nombre_sector
+            identificador = info_proyecto.identificador
+            valor_proyecto = info_proyecto.valor_proyecto
+            vigencia = info_proyecto.vigencia
+            secretaria = proyecto.secretaria.nombre_secretaria
+            return render(request, 'proyectos\info_completa.html', {'proyecto': proyecto, 'municipio': municipio, 'sector_invercion': sector_inversion, 'identificador': identificador, 'valor_proyecto': valor_proyecto, 'secretaria': secretaria, 'vigencia': vigencia})
+        else:
+            messages.error(request, 'El proyecto no tiene información complementaria')
+            return redirect(to=listar_proyectos)
+    else:
+        messages.error(request, 'El proyecto no tiene información complementaria')
         return redirect(to=listar_proyectos)
 
