@@ -37,6 +37,7 @@ LOGOUT_REDIRECT_URL = '/accounts/login'
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,9 @@ INSTALLED_APPS = [
     'aplicaciones.gestion_proyectos',
     'crispy_forms',
 ]
+
+
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
